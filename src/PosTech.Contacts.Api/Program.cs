@@ -1,3 +1,5 @@
+using MediatR;
+using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.Constants;
 using PosTech.Contacts.Infrastructure;
 
@@ -7,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDataServices(builder.Configuration);
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
 
 var app = builder.Build();
@@ -24,9 +27,12 @@ app.UseAuthorization();
 
 RouteGroupBuilder contacts = app.MapGroup(RouteConst.Contacts);
 
-contacts.MapPost("/", async () => await CreateContactAsync());
-static async Task<IResult> CreateContactAsync()
+contacts.MapPost("/", async (CreateContactCommand createContactCommand, IMediator mediator)
+    => await CreateContactAsync(createContactCommand, mediator));
+static async Task<IResult> CreateContactAsync(CreateContactCommand createContactCommand, IMediator mediator)
 {
+    await mediator.Send(createContactCommand);
+    
     return TypedResults.Ok();
 }
 
