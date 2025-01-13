@@ -5,19 +5,9 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Api", "src\PosTech.Contacts.Api\PosTech.Contacts.Api.csproj", "{5D09385D-7058-445B-805A-AC4C485F1C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Repository", "src\PosTech.Contacts.Repository\PosTech.Contacts.Repository.csproj", "{832AB8CF-DE82-4B75-B3B7-DC34F7DF05F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Infrastructure", "src\PosTech.Contacts.Repository\PosTech.Contacts.Infrastructure.csproj", "{832AB8CF-DE82-4B75-B3B7-DC34F7DF05F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Domain", "PosTech.Contacts.Domain\PosTech.Contacts.Domain.csproj", "{90926CB9-39D0-421A-8C3F-8D21DE54462D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{ECE5F90B-1D0D-4BEB-B435-964D48BF47D9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{DFC70978-7D44-4F2D-975C-A37C64BC2C23}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{FCD8C28B-9C08-421E-9DCA-575AC0C4012B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5EA0F000-EB58-4719-A84D-33363545F6E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Application", "src\PosTech.Contacts.Application\PosTech.Contacts.Application.csproj", "{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.ApplicationCore", "PosTech.Contacts.Domain\PosTech.Contacts.ApplicationCore.csproj", "{90926CB9-39D0-421A-8C3F-8D21DE54462D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,18 +27,8 @@ Global
 		{90926CB9-39D0-421A-8C3F-8D21DE54462D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90926CB9-39D0-421A-8C3F-8D21DE54462D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90926CB9-39D0-421A-8C3F-8D21DE54462D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5D09385D-7058-445B-805A-AC4C485F1C99} = {DFC70978-7D44-4F2D-975C-A37C64BC2C23}
-		{832AB8CF-DE82-4B75-B3B7-DC34F7DF05F2} = {FCD8C28B-9C08-421E-9DCA-575AC0C4012B}
-		{90926CB9-39D0-421A-8C3F-8D21DE54462D} = {ECE5F90B-1D0D-4BEB-B435-964D48BF47D9}
-		{ECE1D05F-4DDF-4CE9-959C-0B762D6EC8A7} = {5EA0F000-EB58-4719-A84D-33363545F6E4}
 	EndGlobalSection
 EndGlobal

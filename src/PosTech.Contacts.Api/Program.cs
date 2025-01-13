@@ -1,12 +1,13 @@
+using PosTech.Contacts.ApplicationCore.Constants;
+using PosTech.Contacts.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDataServices(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -20,5 +21,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+RouteGroupBuilder contacts = app.MapGroup(RouteConst.Contacts);
+
+contacts.MapPost("/", async () => await CreateContactAsync());
+static async Task<IResult> CreateContactAsync()
+{
+    return TypedResults.Ok();
+}
 
 app.Run();

@@ -1,0 +1,44 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Repositories;
+using System.Linq.Expressions;
+
+namespace PosTech.Contacts.Infrastructure.Repositories
+{
+    public class ContactRepository(ApplicationDbContext dbContext) : IContactRepository
+    {
+        private readonly ApplicationDbContext _dbContext = dbContext;
+
+        public async Task AddContactAsync(Contact contact)
+        {
+            await _dbContext.Contacts.AddAsync(contact);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteContactAsync(Guid id)
+        {
+            _dbContext.Contacts.Remove(new Contact(id));
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Contact>> FindContactsAsync(Expression<Func<Contact, bool>> predicate)
+        {
+            var result = await _dbContext.Contacts.AsNoTracking().Where(predicate).ToListAsync();
+
+            return result;
+        }
+
+        public async Task<Contact> GetByIdAsync(Guid id)
+        {
+            var result = await _dbContext.Contacts.FindAsync(id);
+
+            return result;
+        }
+
+        public async Task UpdateContactAsync(Contact contact)
+        {
+            _dbContext.Update(contact);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}
