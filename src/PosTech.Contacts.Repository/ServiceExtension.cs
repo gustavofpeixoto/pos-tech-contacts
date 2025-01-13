@@ -8,7 +8,7 @@ namespace PosTech.Contacts.Infrastructure
 {
     public static class ServiceExtension
     {
-        public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
