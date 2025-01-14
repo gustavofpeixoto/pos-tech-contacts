@@ -1,8 +1,6 @@
-﻿using MediatR;
-
-namespace PosTech.Contacts.ApplicationCore.Commands
+﻿namespace PosTech.Contacts.ApplicationCore.DTOs.Requests
 {
-    public class CreateContactCommand : IRequest 
+    public class SearchContactRequestDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }
