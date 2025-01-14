@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PosTech.Contacts.ApplicationCore.Repositories;
+using PosTech.Contacts.ApplicationCore.Services;
 using PosTech.Contacts.Infrastructure.Repositories;
+using PosTech.Contacts.Infrastructure.Services;
 
 namespace PosTech.Contacts.Infrastructure
 {
@@ -22,6 +24,8 @@ namespace PosTech.Contacts.Infrastructure
             });
 
             services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddSingleton<ICacheService, CacheService>();
+            services.AddDistributedMemoryCache();
 
             return services;
         }
