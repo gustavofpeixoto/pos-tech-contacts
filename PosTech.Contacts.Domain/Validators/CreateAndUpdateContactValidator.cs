@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using PosTech.Contacts.ApplicationCore.DTOs.Requests;
-using System.Text.RegularExpressions;
+using PosTech.Contacts.ApplicationCore.Resources;
 
 namespace PosTech.Contacts.ApplicationCore.Validators
 {
@@ -10,31 +10,31 @@ namespace PosTech.Contacts.ApplicationCore.Validators
         {
             RuleFor(c => c.Name)
                 .NotEmpty()
-                .WithMessage("É necessário informar um nome")
+                .WithMessage(Messages.NameRequired)
                 .MinimumLength(2)
-                .WithMessage("Necessário informar um nome com pelo menos 2 caracteres");
+                .WithMessage(Messages.MinLengthForName);
 
             RuleFor(c => c.Surname)
                 .NotEmpty()
-                .WithMessage("É necessário informar um sobrenome")
+                .WithMessage(Messages.SurnameRequired)
                 .MinimumLength(5)
-                .WithMessage("Necessário informar um sobrenome com pelo menos 5 caracteres");
+                .WithMessage(Messages.MinLengthForSurname);
 
             RuleFor(x => x.Ddd)
                 .Must(ddd => CommonValidators.ValidateDdd(ddd))
-                .WithMessage("O DDD informado deve ser válido. Exemplo: 11 (São Paulo capital)");
+                .WithMessage(Messages.DddInvalid);
 
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .WithMessage("É necessário informar um endereço de e-mail")
+                .WithMessage(Messages.EmailRequired)
                 .EmailAddress()
-                .WithMessage("O e-mail informado deve ser válido");
+                .WithMessage(Messages.EmailInvalid);
 
             RuleFor(x => x.Phone)
                 .NotEmpty()
-                .WithMessage("É necessário informar um telefone")
+                .WithMessage(Messages.PhoneRequired)
                 .Must(phone => CommonValidators.ValidatePhone(phone))
-                .WithMessage("O telefone informado informado deve ser válido. Exemplo: 91234-5678 (celular) ou 3456-7890 (fixo)");
+                .WithMessage(Messages.PhoneInvalid);
         }
     }
 }
