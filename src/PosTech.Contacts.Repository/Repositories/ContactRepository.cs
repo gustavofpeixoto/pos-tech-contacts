@@ -30,7 +30,7 @@ namespace PosTech.Contacts.Infrastructure.Repositories
 
         public async Task<Contact> GetByIdAsync(Guid id)
         {
-            var result = await _dbContext.Contacts.FindAsync(id);
+            var result = await _dbContext.Contacts.Include(x => x.Ddd).FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
         }

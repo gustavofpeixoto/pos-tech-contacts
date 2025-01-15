@@ -6,7 +6,8 @@
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public int Ddd { get; set; }
+        public Guid DddId { get; set; }
+        public Ddd Ddd { get; set; }
 
         public Contact() { }
         public Contact(Guid id) => Id = id;

@@ -6,17 +6,22 @@ using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class CreateContactCommandHandler(IContactRepository contactRepository) : IRequestHandler<CreateContactCommand>
+    public class CreateContactCommandHandler(IContactRepository contactRepository, IDddRepository dddRepository)
+        : IRequestHandler<CreateContactCommand>
     {
         private readonly IContactRepository _contactRepository = contactRepository;
+        private readonly IDddRepository _dddRepository = dddRepository;
 
         public async Task Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
             Log.Information("Iniciando persistência do contato na base de dados");
 
+            var ddd = await _dddRepository.GetByDddCodeAsync(request.Ddd);
+
             var contact = new Contact
             {
-                Ddd = request.Ddd,
+                Ddd = ddd,
+                DddId = ddd.Id,
                 Email = request.Email,
                 Name = request.Name,
                 Phone = request.Phone,

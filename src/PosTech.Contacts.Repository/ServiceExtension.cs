@@ -24,6 +24,7 @@ namespace PosTech.Contacts.Infrastructure
             });
 
             services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IDddRepository, DddRepository>();
             services.AddSingleton<ICacheService, CacheService>();
             services.AddDistributedMemoryCache();
 

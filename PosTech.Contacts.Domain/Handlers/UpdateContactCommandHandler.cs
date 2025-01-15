@@ -8,9 +8,12 @@ using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class UpdateContactCommandHandler(IContactRepository contactRepository, IMapper mapper) : IRequestHandler<UpdateContactCommand, ContactResponseDto>
+    public class UpdateContactCommandHandler(IContactRepository contactRepository, IDddRepository dddRepository, IMapper mapper)
+
+        : IRequestHandler<UpdateContactCommand, ContactResponseDto>
     {
         private readonly IContactRepository _contactRepository = contactRepository;
+        private readonly IDddRepository _dddRepository = dddRepository;
         private readonly IMapper _mapper = mapper;
 
         public async Task<ContactResponseDto> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
@@ -26,7 +29,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 return null;
             }
 
-            var updatedContact = UpdateContact(storagedContact, request);
+            var updatedContact = await UpdateContactAsync(storagedContact, request);
 
             await _contactRepository.UpdateContactAsync(updatedContact);
 
@@ -35,9 +38,16 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
             return _mapper.Map<ContactResponseDto>(updatedContact);
         }
 
-        private static Contact UpdateContact(Contact storagedContact, UpdateContactCommand request)
+        private async Task<Contact> UpdateContactAsync(Contact storagedContact, UpdateContactCommand request)
         {
-            storagedContact.Ddd = request.Ddd;
+            if (!Equals(request.Ddd, storagedContact.Ddd.DddCode))
+            {
+                var ddd = await _dddRepository.GetByDddCodeAsync(request.Ddd);
+
+                storagedContact.Ddd = ddd;
+                storagedContact.DddId = ddd.Id;
+            }
+
             storagedContact.Email = request.Email;
             storagedContact.Name = request.Name;
             storagedContact.Phone = request.Phone;
