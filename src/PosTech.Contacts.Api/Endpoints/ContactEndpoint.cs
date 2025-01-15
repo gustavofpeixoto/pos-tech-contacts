@@ -25,9 +25,9 @@ namespace PosTech.Contacts.Api.Endpoints
             IValidator<SearchContactRequestDto> validator, SearchContactRequestDto searchContactRequestDto)
         {
             var validationResult = await validator.ValidateAsync(searchContactRequestDto);
-            
+
             if (!validationResult.IsValid) return Results.ValidationProblem(validationResult.ToDictionary());
-            
+
             var searchContactCommand = mapper.Map<SearchContactsCommand>(searchContactRequestDto);
             var contacts = await mediator.Send(searchContactCommand);
 
@@ -54,9 +54,11 @@ namespace PosTech.Contacts.Api.Endpoints
             var updateContactCommand = mapper.Map<UpdateContactCommand>(updateContactRequestDto);
             updateContactCommand.Id = id;
 
-            await mediator.Send(updateContactCommand);
+            var result = await mediator.Send(updateContactCommand);
 
-            return Results.Ok();
+            if (result is null) return Results.UnprocessableEntity();
+
+            return Results.Ok(result);
         }
 
         public static async Task<IResult> DeleteContactAsync(IMediator mediator, Guid id)

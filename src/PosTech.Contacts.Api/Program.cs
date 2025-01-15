@@ -6,10 +6,16 @@ using PosTech.Contacts.ApplicationCore;
 using PosTech.Contacts.ApplicationCore.Constants;
 using PosTech.Contacts.ApplicationCore.DTOs.Requests;
 using PosTech.Contacts.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
 builder.Services.AddControllers();
+builder.Services.AddSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices(builder.Configuration);

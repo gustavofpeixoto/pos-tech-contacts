@@ -6,6 +6,7 @@ using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.ApplicationCore.Services;
+using Serilog;
 using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
@@ -21,16 +22,26 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
         {
             var key = JsonSerializerHelper.Serialize(request);
 
+            Log.Information("Iniciando busca de contatos com base nos filtros informados.");
+
             if (_cacheService.TryGetValue<List<ContactResponseDto>>(key, out var contacts))
+            {
+                Log.Information("Retornando contatos armazenados no cache.");
+
                 return contacts;
+            }
 
             var filters = CreateFilters(request);
-            var expression = CreateExpression(filters);
+            var expression = CreateExpression(filters);            
             var storageContacts = await _contactRepository.FindContactsAsync(expression);
 
             contacts = _mapper.Map<List<ContactResponseDto>>(storageContacts);
 
-            await _cacheService.SetAsync<List<ContactResponseDto>>(key, contacts, TimeSpan.FromMinutes(10));
+            Log.Information("Armazenando contatos no cache");
+
+            await _cacheService.SetAsync(key, contacts, TimeSpan.FromMinutes(10));
+
+            Log.Information("Busca de contatos finalizada.");
 
             return contacts;
         }

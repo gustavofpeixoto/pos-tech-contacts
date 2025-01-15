@@ -2,6 +2,7 @@
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Repositories;
+using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
@@ -11,6 +12,8 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
         public async Task Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
+            Log.Information("Iniciando persistência do contato na base de dados");
+
             var contact = new Contact
             {
                 Ddd = request.Ddd,
@@ -20,6 +23,8 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 Surname = request.Surname,
             };
             await _contactRepository.AddContactAsync(contact);
+
+            Log.Information("Contato persistido no banco de dados com sucesso. Id: {contactId}", contact.Id);
         }
     }
 }
