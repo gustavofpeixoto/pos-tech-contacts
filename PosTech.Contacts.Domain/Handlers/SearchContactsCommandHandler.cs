@@ -4,22 +4,33 @@ using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Repositories;
+using PosTech.Contacts.ApplicationCore.Serialization;
+using PosTech.Contacts.ApplicationCore.Services;
 using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class SearchContactsCommandHandler(IMapper mapper, IContactRepository contactRepository)
+    public class SearchContactsCommandHandler(ICacheService cacheService, IContactRepository contactRepository, IMapper mapper)
         : IRequestHandler<SearchContactsCommand, List<ContactResponseDto>>
     {
-        private readonly IMapper _mapper = mapper;
+        private readonly ICacheService _cacheService = cacheService;
         private readonly IContactRepository _contactRepository = contactRepository;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<List<ContactResponseDto>> Handle(SearchContactsCommand request, CancellationToken cancellationToken)
         {
+            var key = JsonSerializerHelper.Serialize(request);
+
+            if (_cacheService.TryGetValue<List<ContactResponseDto>>(key, out var contacts))
+                return contacts;
+
             var filters = CreateFilters(request);
             var expression = CreateExpression(filters);
             var storageContacts = await _contactRepository.FindContactsAsync(expression);
-            var contacts = _mapper.Map<List<ContactResponseDto>>(storageContacts);
+
+            contacts = _mapper.Map<List<ContactResponseDto>>(storageContacts);
+
+            await _cacheService.SetAsync<List<ContactResponseDto>>(key, contacts, TimeSpan.FromMinutes(10));
 
             return contacts;
         }

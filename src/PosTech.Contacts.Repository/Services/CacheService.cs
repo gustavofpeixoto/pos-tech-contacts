@@ -1,25 +1,17 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
+using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.ApplicationCore.Services;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace PosTech.Contacts.Infrastructure.Services
 {
     public class CacheService(IDistributedCache distributedCache) : ICacheService
     {
         private readonly IDistributedCache _distributedCache = distributedCache;
-        private JsonSerializerOptions _jsonSerializerOptions = new()
-        {
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            ReferenceHandler = ReferenceHandler.IgnoreCycles
-        };
 
         public async Task SetAsync<T>(string key, T value, TimeSpan expiresIn)
         {
-            var serializedObject = JsonSerializer.Serialize(value, _jsonSerializerOptions);
+            var serializedObject = JsonSerializerHelper.Serialize(value);
             var options = new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = expiresIn };
             var bytes = Encoding.UTF8.GetBytes(serializedObject);
 
@@ -29,11 +21,11 @@ namespace PosTech.Contacts.Infrastructure.Services
         public bool TryGetValue<T>(string key, out T value)
         {
             value = default;
-            var cachedValue = _distributedCache.Get(key);
+            var cachedValue = _distributedCache.GetString(key);
 
             if (cachedValue is null) return false;
 
-            value = JsonSerializer.Deserialize<T>(cachedValue, _jsonSerializerOptions);
+            value = JsonSerializerHelper.Deserialize<T>(cachedValue);
         
             return true;
         }
