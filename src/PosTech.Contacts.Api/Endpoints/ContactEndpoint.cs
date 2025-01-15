@@ -31,7 +31,7 @@ namespace PosTech.Contacts.Api.Endpoints
             var searchContactCommand = mapper.Map<SearchContactsCommand>(searchContactRequestDto);
             var contacts = await mediator.Send(searchContactCommand);
 
-            if (contacts is null || contacts.Count == 0) return Results.NotFound();
+            if (contacts is null || contacts.Count == 0) return Results.NoContent();
 
             return Results.Ok(contacts);
         }
@@ -40,7 +40,7 @@ namespace PosTech.Contacts.Api.Endpoints
         {
             var contact = await mediator.Send(new GetContactByIdCommand { Id = id });
 
-            if (contact is null) return Results.NotFound();
+            if (contact is null) return Results.NoContent();
 
             return Results.Ok(contact);
         }
