@@ -48,7 +48,7 @@ contacts.MapPost("/search", async (IMediator mediator, IMapper mapper,
 contacts.MapGet("/{id:guid}", async (IMediator mediator, Guid id)
     => await ContactEndpoint.GetContactByIdAsync(mediator, id)).CacheOutput();
 
-contacts.MapPut("/{id:guid}", async (IMediator mediator, IMapper mapper,
+contacts.MapPatch("/{id:guid}", async (IMediator mediator, IMapper mapper,
     IValidator<CreateAndUpdateContactRequestDto> validator, CreateAndUpdateContactRequestDto contactDto, Guid id)
     => await ContactEndpoint.UpdateContactAsync(mediator, validator, mapper, contactDto, id));
 
