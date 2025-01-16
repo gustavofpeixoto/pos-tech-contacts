@@ -12,7 +12,7 @@ namespace PosTech.Contacts.ApplicationCore.Validators
 
         public static bool ValidatePhone(string phone)
         {
-            var phonepattern = @"^(9\d{4}-\d{4}|\d{4}-\d{4})$";
+            var phonepattern = @"^(9\d{8}|\d{8})$";
             var regex = new Regex(phonepattern);
 
             return regex.IsMatch(phone);
