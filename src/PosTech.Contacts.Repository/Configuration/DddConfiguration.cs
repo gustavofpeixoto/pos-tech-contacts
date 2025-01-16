@@ -10,6 +10,8 @@ namespace PosTech.Contacts.Infrastructure.Configuration
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.State).HasColumnType("varchar(10)");
+
             builder
                 .HasOne(ddd => ddd.Region)
                 .WithMany(region => region.Ddds)
