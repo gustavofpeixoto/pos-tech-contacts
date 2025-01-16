@@ -16,9 +16,9 @@ namespace PosTech.Contacts.Api.Endpoints
 
             var createContactCommand = mapper.Map<CreateContactCommand>(createContactRequestDto);
 
-            await mediator.Send(createContactCommand);
+            var result = await mediator.Send(createContactCommand);
 
-            return TypedResults.Created();
+            return TypedResults.Ok(result);
         }
 
         public static async Task<IResult> SearchContactsAsync(IMediator mediator, IMapper mapper,

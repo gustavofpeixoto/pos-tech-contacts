@@ -9,7 +9,6 @@ using Serilog;
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
     public class UpdateContactCommandHandler(IContactRepository contactRepository, IDddRepository dddRepository, IMapper mapper)
-
         : IRequestHandler<UpdateContactCommand, ContactResponseDto>
     {
         private readonly IContactRepository _contactRepository = contactRepository;

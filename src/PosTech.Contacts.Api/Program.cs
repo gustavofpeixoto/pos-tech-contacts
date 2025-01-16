@@ -5,6 +5,7 @@ using PosTech.Contacts.Api.Endpoints;
 using PosTech.Contacts.ApplicationCore;
 using PosTech.Contacts.ApplicationCore.Constants;
 using PosTech.Contacts.ApplicationCore.DTOs.Requests;
+using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.Infrastructure;
 using Serilog;
 
@@ -39,21 +40,35 @@ RouteGroupBuilder contacts = app.MapGroup(RouteConst.Contacts);
 
 contacts.MapPost("/", async (IMediator mediator, IMapper mapper,
     IValidator<CreateAndUpdateContactRequestDto> validator, CreateAndUpdateContactRequestDto contactDto)
-    => await ContactEndpoint.CreateContactAsync(mediator, validator, mapper, contactDto));
+    => await ContactEndpoint.CreateContactAsync(mediator, validator, mapper, contactDto))
+    .WithOpenApi(op => new(op) { Description = "Endpoint para cadastro de novos contatos." })
+    .Produces<ContactResponseDto>(StatusCodes.Status200OK);
 
 contacts.MapPost("/search", async (IMediator mediator, IMapper mapper,
     IValidator<SearchContactRequestDto> validator, SearchContactRequestDto searchContactRequestDto)
-    => await ContactEndpoint.SearchContactsAsync(mediator, mapper, validator, searchContactRequestDto)).CacheOutput();
+    => await ContactEndpoint.SearchContactsAsync(mediator, mapper, validator, searchContactRequestDto))
+    .WithOpenApi(op => new(op) { Description = @"Endpoint de busca avançada. 
+Todos os parâmetros submetidos serão utilizados para filtrar os contatos do banco de dados." })
+    .Produces<List<ContactResponseDto>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status204NoContent);
 
 contacts.MapGet("/{id:guid}", async (IMediator mediator, Guid id)
-    => await ContactEndpoint.GetContactByIdAsync(mediator, id)).CacheOutput();
+    => await ContactEndpoint.GetContactByIdAsync(mediator, id)).CacheOutput()
+    .WithOpenApi(op => new(op) { Description = "Endpoint para busca de contatos por identificador único." })
+    .Produces<ContactResponseDto>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status204NoContent);
 
 contacts.MapPatch("/{id:guid}", async (IMediator mediator, IMapper mapper,
     IValidator<CreateAndUpdateContactRequestDto> validator, CreateAndUpdateContactRequestDto contactDto, Guid id)
-    => await ContactEndpoint.UpdateContactAsync(mediator, validator, mapper, contactDto, id));
+    => await ContactEndpoint.UpdateContactAsync(mediator, validator, mapper, contactDto, id))
+    .WithOpenApi(op => new(op) { Description = "Entpoint para atualizar as informaões do contato." })
+    .Produces<ContactResponseDto>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status422UnprocessableEntity);
 
 contacts.MapDelete("/{id:guid}", async (IMediator mediator, Guid id)
-    => await ContactEndpoint.DeleteContactAsync(mediator, id));
+    => await ContactEndpoint.DeleteContactAsync(mediator, id))
+    .WithOpenApi(op => new(op) { Description = "Remove completamente as informações do contato da base de dados." })
+    .Produces(StatusCodes.Status200OK);
 
 #endregion
 
