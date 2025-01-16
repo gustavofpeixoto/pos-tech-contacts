@@ -12,6 +12,8 @@ namespace PosTech.Contacts.ApplicationCore.Validators
 
         public static bool ValidatePhone(string phone)
         {
+            if (string.IsNullOrEmpty(phone)) return false;
+
             var phonepattern = @"^(9\d{8}|\d{8})$";
             var regex = new Regex(phonepattern);
 
