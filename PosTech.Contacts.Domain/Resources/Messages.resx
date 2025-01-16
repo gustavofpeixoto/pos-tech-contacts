@@ -142,6 +142,6 @@
     <value>É necessário informar um sobrenome</value>
   </data>
   <data name="PhoneInvalid" xml:space="preserve">
-    <value>O telefone informado é inválido. Formatos válidos 91234-5678 (celular) ou 2345-6789 (fixo)</value>
+    <value>O telefone informado é inválido. Formatos válidos 912345678 (celular) ou 23456789 (fixo)</value>
   </data>
 </root>

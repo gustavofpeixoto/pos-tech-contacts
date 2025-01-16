@@ -115,7 +115,7 @@ namespace PosTech.Contacts.ApplicationCore.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O telefone informado é inválido. Formatos válidos 91234-5678 (celular) ou 2345-6789 (fixo).
+        ///   Looks up a localized string similar to O telefone informado é inválido. Formatos válidos 912345678 (celular) ou 23456789 (fixo).
         /// </summary>
         public static string PhoneInvalid {
             get {

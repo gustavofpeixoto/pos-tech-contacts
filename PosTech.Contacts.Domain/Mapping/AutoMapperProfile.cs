@@ -12,7 +12,7 @@ namespace PosTech.Contacts.ApplicationCore.Mapping
         {
             CreateMap<Contact, ContactResponseDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Ddd, opt => opt.MapFrom(src => src.Ddd))
+                .ForMember(dest => dest.Ddd, opt => opt.MapFrom(src => src.Ddd.DddCode))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
@@ -33,7 +33,7 @@ namespace PosTech.Contacts.ApplicationCore.Mapping
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname));
 
             CreateMap<SearchContactRequestDto, SearchContactsCommand>()
-                .ForMember(dest => dest.Ddd, opt => opt.MapFrom(src => src.Ddd))
+                .ForMember(dest => dest.DddCode, opt => opt.MapFrom(src => src.Ddd))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))

@@ -8,14 +8,17 @@ using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.ApplicationCore.Services;
 using Serilog;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class SearchContactsCommandHandler(ICacheService cacheService, IContactRepository contactRepository, IMapper mapper)
+    public class SearchContactsCommandHandler(ICacheService cacheService, IContactRepository contactRepository,
+        IDddRepository dddRepository, IMapper mapper)
         : IRequestHandler<SearchContactsCommand, List<ContactResponseDto>>
     {
         private readonly ICacheService _cacheService = cacheService;
         private readonly IContactRepository _contactRepository = contactRepository;
+        private readonly IDddRepository _dddRepository = dddRepository;
         private readonly IMapper _mapper = mapper;
 
         public async Task<List<ContactResponseDto>> Handle(SearchContactsCommand request, CancellationToken cancellationToken)
@@ -31,8 +34,10 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 return contacts;
             }
 
+            await AddDddIdAsync(request);
+
             var filters = CreateFilters(request);
-            var expression = CreateExpression(filters);            
+            var expression = CreateExpression(filters);
             var storageContacts = await _contactRepository.FindContactsAsync(expression);
 
             contacts = _mapper.Map<List<ContactResponseDto>>(storageContacts);
@@ -46,6 +51,15 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
             return contacts;
         }
 
+        private async Task AddDddIdAsync(SearchContactsCommand request)
+        {
+            if (request.DddCode == default) return;
+
+            var ddd = await _dddRepository.GetByDddCodeAsync(request.DddCode);
+
+            request.DddId = ddd.Id;
+        }
+
         private static List<Filter> CreateFilters(SearchContactsCommand request)
         {
             var filters = new List<Filter>();
@@ -55,8 +69,19 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
             foreach (var property in properties)
             {
-                if (property.GetValue(request) is not null && !string.IsNullOrEmpty(property.GetValue(request).ToString()))
+                if (property.Name == nameof(SearchContactsCommand.DddCode)) continue;
+                if (property.GetValue(request) is null) continue;
+
+                if (property.PropertyType == typeof(Guid) && (Guid)property.GetValue(request) != default)
+                {
                     filters.Add(new Filter { ColumnName = property.Name, Value = property.GetValue(request).ToString() });
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(property.GetValue(request).ToString()))
+                {
+                    filters.Add(new Filter { ColumnName = property.Name, Value = property.GetValue(request).ToString() });
+                }
             }
 
             return filters;
@@ -79,7 +104,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 }
                 else
                 {
-                    constant = Expression.Constant(Convert.ToInt32(filter.Value));
+                    constant = Expression.Constant(new Guid(filter.Value));
                     comparison = Expression.Equal(property, constant);
                 }
 

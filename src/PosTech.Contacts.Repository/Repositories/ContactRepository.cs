@@ -23,7 +23,7 @@ namespace PosTech.Contacts.Infrastructure.Repositories
 
         public async Task<IEnumerable<Contact>> FindContactsAsync(Expression<Func<Contact, bool>> predicate)
         {
-            var result = await _dbContext.Contacts.AsNoTracking().Where(predicate).ToListAsync();
+            var result = await _dbContext.Contacts.AsNoTracking().Include(x => x.Ddd).Where(predicate).ToListAsync();
 
             return result;
         }
