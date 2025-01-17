@@ -4,10 +4,10 @@
 
 # Índice 
 
-* [Descrição do projeto](##Descrição-do-projeto)
-* [Funcionalidades do projeto](##Funcionalidades-do-projeto)
-* [Técnicas e tecnologias utilizadas](##Técnicas-e-tecnologias-utilizadas)
-* [Acesso ao projeto](##Acesso-ao-projeto)
+* [Descrição do projeto](#Descrição-do-projeto)
+* [Funcionalidades do projeto](#Funcionalidades-do-projeto)
+* [Técnicas e tecnologias utilizadas](#Técnicas-e-tecnologias-utilizadas)
+* [Acesso ao projeto](#Acesso-ao-projeto)
 
 ## 📚 Descrição do projeto
 
