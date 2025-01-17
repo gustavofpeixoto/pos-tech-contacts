@@ -71,9 +71,10 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 if (property.Name == nameof(SearchContactsCommand.DddCode)) continue;
                 if (property.GetValue(request) is null) continue;
 
-                if (property.PropertyType == typeof(Guid) && (Guid)property.GetValue(request) != default)
+                if (property.PropertyType == typeof(Guid))
                 {
-                    filters.Add(new Filter { ColumnName = property.Name, Value = property.GetValue(request).ToString() });
+                    if ((Guid)property.GetValue(request) != default)
+                        filters.Add(new Filter { ColumnName = property.Name, Value = property.GetValue(request).ToString() });
                     continue;
                 }
 
