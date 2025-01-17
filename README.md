@@ -4,10 +4,10 @@
 
 # Índice 
 
-* [Descrição do projeto](#Descrição-do-projeto)
-* [Funcionalidades do aplicativo](#Funcionalidades-do-aplicativo)
-* [Técnicas e tecnologias utilizadas](#Técnicas-e-tecnologias-utilizadas)
-* [Acesso ao projeto](#Acesso-ao-projeto)
+- [Descrição do projeto](#descrição-do-projeto)
+- [Funcionalidades do aplicativo](#funcionalidades-do-aplicativo)
+- [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
+- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
 
 ## 📚 Descrição do projeto
 
@@ -31,11 +31,7 @@ Foram implementadas duas funcionalidades para a consulta de contatos:
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-## 📁 Acesso ao projeto
-
-
-
-## 🛠️ Abrir e rodar o projeto
+## 📁 Abrir e rodar o projeto
 
 **Apresente as instruções necessárias para abrir e executar o projeto**
 
