@@ -8,7 +8,6 @@ using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.ApplicationCore.Services;
 using Serilog;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
