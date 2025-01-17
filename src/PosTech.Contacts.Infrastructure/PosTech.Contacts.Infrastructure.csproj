@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PosTech.Contacts.Domain\PosTech.Contacts.ApplicationCore.csproj" />
+    <ProjectReference Include="..\PosTech.Contacts.ApplicationCore\PosTech.Contacts.ApplicationCore.csproj" />
   </ItemGroup>
 
 </Project>

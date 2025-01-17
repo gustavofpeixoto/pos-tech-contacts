@@ -5,11 +5,11 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Api", "src\PosTech.Contacts.Api\PosTech.Contacts.Api.csproj", "{5D09385D-7058-445B-805A-AC4C485F1C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Infrastructure", "src\PosTech.Contacts.Repository\PosTech.Contacts.Infrastructure.csproj", "{832AB8CF-DE82-4B75-B3B7-DC34F7DF05F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Infrastructure", "src\PosTech.Contacts.Infrastructure\PosTech.Contacts.Infrastructure.csproj", "{832AB8CF-DE82-4B75-B3B7-DC34F7DF05F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.ApplicationCore", "PosTech.Contacts.Domain\PosTech.Contacts.ApplicationCore.csproj", "{90926CB9-39D0-421A-8C3F-8D21DE54462D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.ApplicationCore", "src\PosTech.Contacts.ApplicationCore\PosTech.Contacts.ApplicationCore.csproj", "{90926CB9-39D0-421A-8C3F-8D21DE54462D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "test\Test\Test.csproj", "{BC631B8F-8310-40C5-BADA-A849CA718AAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosTech.Contacts.Test", "test\PosTech.Contacts.Test\PosTech.Contacts.Test.csproj", "{BC631B8F-8310-40C5-BADA-A849CA718AAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,7 +6,7 @@ using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Repositories;
 
-namespace Test.ApplicationCore.Handlers
+namespace PosTech.Contacts.Test.ApplicationCore.Handlers
 {
     public class UpdateContactCommandHandlerTest
     {

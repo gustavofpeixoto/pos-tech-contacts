@@ -7,7 +7,7 @@ using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Services;
 
-namespace Test.ApplicationCore.Handlers
+namespace PosTech.Contacts.Test.ApplicationCore.Handlers
 {
     public class GetContactByIdCommandHandlerTest
     {

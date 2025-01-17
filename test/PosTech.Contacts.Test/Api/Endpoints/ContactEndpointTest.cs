@@ -10,7 +10,7 @@ using PosTech.Contacts.ApplicationCore.DTOs.Requests;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Validators;
 
-namespace Test.Api.Endpoints
+namespace PosTech.Contacts.Test.Api.Endpoints
 {
     public class ContactEndpointTest
     {

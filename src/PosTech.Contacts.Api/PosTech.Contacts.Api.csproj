@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PosTech.Contacts.Domain\PosTech.Contacts.ApplicationCore.csproj" />
-    <ProjectReference Include="..\PosTech.Contacts.Repository\PosTech.Contacts.Infrastructure.csproj" />
+    <ProjectReference Include="..\PosTech.Contacts.ApplicationCore\PosTech.Contacts.ApplicationCore.csproj" />
+    <ProjectReference Include="..\PosTech.Contacts.Infrastructure\PosTech.Contacts.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
