@@ -4,10 +4,10 @@
 
 # Índice 
 
-- [Descrição do projeto](#descrição-do-projeto)
-- [Funcionalidades do aplicativo](#funcionalidades-do-aplicativo)
-- [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
-- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
+- [Descrição do projeto](#-descrição-do-projeto)
+- [Funcionalidades do aplicativo](#-funcionalidades-do-aplicativo)
+- [Técnicas e tecnologias utilizadas](#-técnicas-e-tecnologias-utilizadas)
+- [Abrir e rodar o projeto](#-abrir-e-rodar-o-projeto)
 
 ## 📚 Descrição do projeto
 
