@@ -4,7 +4,7 @@ using PosTech.Contacts.ApplicationCore.Repositories;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    internal class DeleteContactCommandHandler(IContactRepository contactRepository) : IRequestHandler<DeleteContactCommand>
+    public class DeleteContactCommandHandler(IContactRepository contactRepository) : IRequestHandler<DeleteContactCommand>
     {
         private readonly IContactRepository _contactRepository = contactRepository;
 
