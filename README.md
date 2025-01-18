@@ -31,6 +31,20 @@ Foram implementadas duas funcionalidades para a consulta de contatos:
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
+### Arquitetura
+
+Foi adotada a arquitetura limpa para modelar o aplicativo de contatos. Esta é uma estrutura de design de software com várias camadas, promovendo uma organização clara e fácil de compreender, o que é benéfico para o desenvolvimento.
+
+A principal característica da arquitetura limpa é a separação e independência das camadas, desacoplando a lógica de negócios das influências externas, como a interface do usuário (UI), frameworks, bancos de dados, entre outros. Isso é alcançado ao definir uma camada de domínio independente e isolada.
+
+Representação das camadas:
+
+![Capa com o nome do curso da pós graduação](./assets/clean-architecture.png)
+
+### Persistência de dados
+
+Para persistência de dados 
+
 ## 📁 Abrir e rodar o projeto
 
 **Apresente as instruções necessárias para abrir e executar o projeto**
