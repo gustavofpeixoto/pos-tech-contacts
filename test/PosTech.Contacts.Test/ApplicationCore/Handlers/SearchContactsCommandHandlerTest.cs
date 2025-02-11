@@ -8,7 +8,7 @@ using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Services;
 using System.Linq.Expressions;
 
-namespace PosTech.Contacts.Test.ApplicationCore.Handlers
+namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class SearchContactsCommandHandlerTest
     {

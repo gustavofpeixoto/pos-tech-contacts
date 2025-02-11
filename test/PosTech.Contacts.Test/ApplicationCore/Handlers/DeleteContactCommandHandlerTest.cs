@@ -3,7 +3,7 @@ using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Commands;
 
-namespace PosTech.Contacts.Test.ApplicationCore.Handlers
+namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class DeleteContactCommandHandlerTest
     {
