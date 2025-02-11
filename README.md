@@ -8,6 +8,7 @@
 - [Funcionalidades do aplicativo](#-funcionalidades-do-aplicativo)
 - [Técnicas e tecnologias utilizadas](#%EF%B8%8F-técnicas-e-tecnologias-utilizadas)
 - [Abrir e rodar o projeto](#-abrir-e-rodar-o-projeto)
+- [Contato](#-contato)
 
 ## 📚 Descrição do projeto
 
@@ -43,9 +44,31 @@ Representação das camadas:
 
 ### Persistência de dados
 
-Para persistência de dados 
+A persistência de dados foi realizada com o banco de dados SQL Server, utilizando o ORM Entity Framework para o mapeamento e a criação do banco (metodologia code-first).
+
+### Validações
+
+Para as validações, foi utilizada a biblioteca FluentValidation. Isso garante a consistência dos dados armazenados e impede a manipulação incorreta dos mesmos.
+
+### Mediator
+
+Para facilitar o desenvolvimento, a manutenção e manter o código limpo e legível, é importante seguir os princípios SOLID, padrões de projetos e outras boas práticas, como o desacoplamento dos objetos. Dentro deste grupo de recomendações, a adoção do Mediator Pattern tem ganhado destaque. Neste projeto o Mediator foi implementado utilizando a biblioteca MediatR.
 
 ## 📁 Abrir e rodar o projeto
 
-**Apresente as instruções necessárias para abrir e executar o projeto**
+### Preparando o banco de dados
 
+Para criar o banco de dados, basta executar o script **pos-tech-contacts/scripts/1-create-data-base.sql** e para popular as tabelas Regions e Ddds o script **pos-tech-contacts/scripts/2-insert-regions=and-ddds.sql**
+
+### Rodando a aplicação
+
+A aplicação foi testada localmente utilizando o SDK .NET 8.0.11. Para instalar o SDK, visite esta [página](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) e faça o download. 
+
+Para executar a aplicação, utilize o comando **dotnet run** e especifique o projeto **PosTech.Contacts.Api.csproj**, conforme demonstrado a seguir:
+
+![Capa com o nome do curso da pós graduação](./assets/dotnet-run-command.png)
+
+## 📚 Contato
+
+Gustavo Peixoto
+gustavo.fonseca.peixoto@gmail.com
