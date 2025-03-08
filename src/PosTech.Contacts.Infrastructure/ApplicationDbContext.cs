@@ -8,6 +8,7 @@ namespace PosTech.Contacts.Infrastructure
     {
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Ddd> Ddds { get; set; }
+        public DbSet<Region> Regions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
