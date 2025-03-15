@@ -7,6 +7,8 @@ using PosTech.Contacts.ApplicationCore.Constants;
 using PosTech.Contacts.ApplicationCore.DTOs.Requests;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.Infrastructure;
+using Prometheus;
+using Prometheus.DotNetRuntime;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,18 @@ var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateLogger();
+
+var prometheusBuilder = DotNetRuntimeStatsBuilder.Default();
+prometheusBuilder = DotNetRuntimeStatsBuilder.Customize()
+    .WithContentionStats(CaptureLevel.Informational)
+    .WithGcStats(CaptureLevel.Verbose)
+    .WithThreadPoolStats(CaptureLevel.Informational)
+    .WithExceptionStats(CaptureLevel.Errors)
+    .WithJitStats();
+
+prometheusBuilder.RecycleCollectorsEvery(new TimeSpan(0, 20, 0));
+
+prometheusBuilder.StartCollecting();
 
 builder.Services.AddControllers();
 builder.Services.AddSerilog();
@@ -28,7 +42,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseHttpMetrics();
+app.UseMetricServer();
 
 #region Contact Endpoits
 
