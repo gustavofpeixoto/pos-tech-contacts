@@ -5,7 +5,7 @@
 # Índice 
 
 - [Descrição do projeto](#-descrição-do-projeto)
-- [Fase 1 ](#-fase-1)
+- [Fase 1 ](#fase-1)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
