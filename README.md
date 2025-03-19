@@ -76,7 +76,7 @@ A etapa anterior do Tech Challenge focou no desenvolvimento de um aplicativo .NE
 
 ### Teste de integração
 
-O teste de integração tem como objetivo validar a interação entre os componentes do sistema, assegurando que consultas, comandos e operações de persistência sejam executados corretamente. Para isso, foi configurado um banco de dados real, onde foram realizadas operações como salvar, buscar, atualizar e excluir dados, seguidas da validação dos resultados esperados. Importante destacar que o banco utilizado nos testes é isolado do ambiente de produção, garantindo a segurança e integridade dos dados.
+O teste de integração tem como objetivo validar a interação entre os componentes do sistema, assegurando que consultas, comandos e operações de persistência sejam executados corretamente. Para isso, foi configurado um banco de dados real **SqlDb-PosTech-Contacts-Integration-Tests**, onde foram realizadas operações como salvar, buscar, atualizar e excluir dados, seguidas da validação dos resultados esperados. Importante destacar que o banco utilizado nos testes é isolado do ambiente de produção, garantindo a segurança e integridade dos dados.
 
 Os testes foram realizados utilizando a biblioteca xUnit, com a configuração de um banco de dados que é criado uma única vez e reutilizado ao longo de toda a suíte de testes.
 
