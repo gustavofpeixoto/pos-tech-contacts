@@ -85,6 +85,54 @@ As outras abordagens possíveis seriam:
 - Um por Teste: um banco de dados é criado individualmente para cada teste.
 - Um por Classe de Teste: um banco de dados é configurado para cada classe de teste e compartilhado entre todos os testes dessa classe.
 
+### Pipeline de CI (**C**ontinuous **I**ntegration)
+
+1. Build
+Executado em um runner self-hosted.
+
+Faz o checkout do código-fonte.
+
+Configura o .NET SDK (versão 8.0.x).
+
+Restaura as dependências do projeto com o comando dotnet restore.
+
+Faz o build de todos os projetos no modo Debug utilizando dotnet build.
+
+2. Unit Tests
+Depende da execução bem-sucedida do job anterior (build).
+
+Executado em um runner self-hosted.
+
+Realiza:
+
+Checkout do código-fonte.
+
+Configuração do .NET SDK.
+
+Build dos projetos de testes unitários.
+
+Execução dos testes unitários localizados em PosTech.Contacts.UnitTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal (verbosity normal).
+
+3. Integration Tests
+Também depende da execução bem-sucedida do job de build (build).
+
+Executado em um runner self-hosted.
+
+Realiza:
+
+Checkout do código-fonte.
+
+Configuração do .NET SDK.
+
+Build dos projetos de testes de integração.
+
+Execução dos testes de integração localizados em PosTech.Contacts.IntegrationTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal.
+
+Finalidade
+Esse pipeline automatiza o processo de construção, validação e testes do código, garantindo que o build do projeto funcione corretamente e que os testes unitários e de integração sejam executados. Isso ajuda a manter a qualidade do código e facilita a detecção de erros. Quer ajustar ou adicionar algo a este fluxo? 😊
+
+
+
 ## 📚 Contato
 
 Gustavo Peixoto
