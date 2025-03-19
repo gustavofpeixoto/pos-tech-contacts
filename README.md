@@ -5,7 +5,8 @@
 # Índice 
 
 - [Descrição do projeto](#-descrição-do-projeto)
-- [Fase 1 ](#fase-1)
+- [Fase 1](#fase-1)
+- [Fase 2](#fase-2)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
@@ -67,6 +68,8 @@ A aplicação foi testada localmente utilizando o SDK .NET 8.0.11. Para instalar
 Para executar a aplicação, utilize o comando **dotnet run** e especifique o projeto **PosTech.Contacts.Api.csproj**, conforme demonstrado a seguir:
 
 ![Capa com o nome do curso da pós graduação](./assets/dotnet-run-command.png)
+
+## Fase 2
 
 ## 📚 Contato
 
