@@ -72,6 +72,12 @@ Para executar a aplicação, utilize o comando **dotnet run** e especifique o pr
 
 ## Fase 2
 
+A etapa anterior do Tech Challenge focou no desenvolvimento de um aplicativo .NET para o cadastro de contatos regionais. Esse aplicativo incluía funcionalidades essenciais, como adicionar, consultar, atualizar e excluir contatos, utilizando ferramentas como Entity Framework Core para a persistência de dados, além da implementação de validações robustas. Agora, avançaremos no projeto, incorporando práticas de Integração Contínua (CI), testes de integração e monitoramento de desempenho, elevando a qualidade e a confiabilidade da aplicação a um novo patamar.
+
+### Teste de integração
+
+Para realizar os testes de integração foi utilizado a biblioteca [xUnit](https://www.nuget.org/packages/xunit)  
+
 ## 📚 Contato
 
 Gustavo Peixoto
