@@ -12,9 +12,10 @@
 ## 📚 Descrição do projeto
 
 Projeto em Desenvolvimento para o Tech Challenge da Pós-Graduação em Arquitetura de Sistemas .NET da FIAP.
-O objetivo do Tech Challenge é desenvolver um aplicativo utilizando a plataforma .NET 8 para o cadastro de contatos regionais. Este projeto considera a persistência de dados e a qualidade do software
+O objetivo do Tech Challenge é desenvolver um aplicativo utilizando a plataforma .NET 8 para o cadastro de contatos regionais. 
 
 ## Fase 1
+O desafio da primeira fase consiste em desenvolver um aplicativo para cadastro de contatos regionais, com ênfase na persistência de dados, na garantia da qualidade do software e ons princípios de engenharia de software.
 
 ### 🔨 Funcionalidades do aplicativo
 
