@@ -17,13 +17,13 @@ O objetivo do Tech Challenge é desenvolver um aplicativo utilizando a plataform
 
 ### 🔨 Funcionalidades do aplicativo
 
-#### Cadastro de contatos
+### Cadastro de contatos
 Cadastro de novos contatos, incluindo nome, sobrenome, telefone e e-mail. Cada contato é associado a um DDD correspondente à região.
 
-#### Atualização e exclusão
+### Atualização e exclusão
 Atualização e a exclusão de contatos previamente cadastrados.
 
-#### Consulta de contatos
+### Consulta de contatos
 Foram implementadas duas funcionalidades para a consulta de contatos:
 
 1 - Recuperação por Identificador Único: Permite recuperar o contato por meio do identificador único informado.
@@ -32,7 +32,7 @@ Foram implementadas duas funcionalidades para a consulta de contatos:
 
 ### ✔️ Técnicas e tecnologias utilizadas
 
-#### Arquitetura
+### Arquitetura
 
 Foi adotada a arquitetura limpa para modelar o aplicativo de contatos. Esta é uma estrutura de design de software com várias camadas, promovendo uma organização clara e fácil de compreender, o que é benéfico para o desenvolvimento.
 
@@ -42,25 +42,25 @@ Representação das camadas:
 
 ![Capa com o nome do curso da pós graduação](./assets/clean-architecture.png)
 
-#### Persistência de dados
+### Persistência de dados
 
 A persistência de dados foi realizada com o banco de dados SQL Server, utilizando o ORM Entity Framework para o mapeamento e a criação do banco (metodologia code-first).
 
-#### Validações
+### Validações
 
 Para as validações, foi utilizada a biblioteca FluentValidation. Isso garante a consistência dos dados armazenados e impede a manipulação incorreta dos mesmos.
 
-#### Mediator
+### Mediator
 
 Para facilitar o desenvolvimento, a manutenção e manter o código limpo e legível, é importante seguir os princípios SOLID, padrões de projetos e outras boas práticas, como o desacoplamento dos objetos. Dentro deste grupo de recomendações, a adoção do Mediator Pattern tem ganhado destaque. Neste projeto o Mediator foi implementado utilizando a biblioteca MediatR.
 
 ### 📁 Abrir e rodar o projeto
 
-#### Preparando o banco de dados
+### Preparando o banco de dados
 
 Para criar o banco de dados, basta executar o script **pos-tech-contacts/scripts/1-create-data-base.sql** e para popular as tabelas Regions e Ddds o script **pos-tech-contacts/scripts/2-insert-regions=and-ddds.sql**
 
-#### Rodando a aplicação
+### Rodando a aplicação
 
 A aplicação foi testada localmente utilizando o SDK .NET 8.0.11. Para instalar o SDK, visite esta [página](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) e faça o download. 
 
