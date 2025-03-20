@@ -85,7 +85,7 @@ As outras abordagens possíveis seriam:
 - Um por Teste: um banco de dados é criado individualmente para cada teste.
 - Um por Classe de Teste: um banco de dados é configurado para cada classe de teste e compartilhado entre todos os testes dessa classe.
 
-### Pipeline de CI (**C**ontinuous **I**ntegration)
+### 🚀 Pipeline de CI (**C**ontinuous **I**ntegration)
 
 ### 1. Build
 
