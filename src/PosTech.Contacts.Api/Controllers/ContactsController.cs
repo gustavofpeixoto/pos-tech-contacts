@@ -25,7 +25,7 @@ namespace PosTech.Contacts.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("/search")]
+        [HttpPost("search")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<ContactResponseDto>))]
         [SwaggerResponse(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> SearchContactsAsync(SearchContactRequestDto searchContactRequestDto)
