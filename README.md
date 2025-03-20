@@ -98,7 +98,7 @@ Restaura as dependências do projeto com o comando dotnet restore.
 
 Faz o build de todos os projetos no modo Debug utilizando dotnet build.
 
-2. Unit Tests
+2. Unit Tests 🖍 
 Depende da execução bem-sucedida do job anterior (build).
 
 Executado em um runner self-hosted.
