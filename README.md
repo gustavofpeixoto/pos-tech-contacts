@@ -74,7 +74,7 @@ Para executar a aplicação, utilize o comando **dotnet run** e especifique o pr
 
 A etapa anterior do Tech Challenge focou no desenvolvimento de um aplicativo .NET para o cadastro de contatos regionais. Esse aplicativo incluía funcionalidades essenciais, como adicionar, consultar, atualizar e excluir contatos, utilizando ferramentas como Entity Framework Core para a persistência de dados, além da implementação de validações robustas. Agora, avançaremos no projeto, incorporando práticas de Integração Contínua (CI), testes de integração e monitoramento de desempenho, elevando a qualidade e a confiabilidade da aplicação a um novo patamar.
 
-### Teste de integração
+### 🖍 Teste de integração
 
 O teste de integração tem como objetivo validar a interação entre os componentes do sistema, assegurando que consultas, comandos e operações de persistência sejam executados corretamente. Para isso, foi configurado um banco de dados real **SqlDb-PosTech-Contacts-Integration-Tests**, onde foram realizadas operações como salvar, buscar, atualizar e excluir dados, seguidas da validação dos resultados esperados. Importante destacar que o banco utilizado nos testes é isolado do ambiente de produção, garantindo a segurança e integridade dos dados.
 
@@ -87,50 +87,36 @@ As outras abordagens possíveis seriam:
 
 ### Pipeline de CI (**C**ontinuous **I**ntegration)
 
-1. Build
+### 1. Build
+
 Executado em um runner self-hosted.
+- Faz o checkout do código-fonte;
+- Configura o .NET SDK (versão 8.0.x);
+- Restaura as dependências do projeto com o comando dotnet restore;
+- Faz o build de todos os projetos no modo Debug utilizando dotnet build.
 
-Faz o checkout do código-fonte.
+### 2. Unit Tests 
 
-Configura o .NET SDK (versão 8.0.x).
-
-Restaura as dependências do projeto com o comando dotnet restore.
-
-Faz o build de todos os projetos no modo Debug utilizando dotnet build.
-
-2. Unit Tests 🖍 
 Depende da execução bem-sucedida do job anterior (build).
-
 Executado em um runner self-hosted.
-
 Realiza:
+- Checkout do código-fonte;
+- Configuração do .NET SDK;
+- Build dos projetos de testes unitários;
+- Execução dos testes unitários localizados em PosTech.Contacts.UnitTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal (verbosity normal).
 
-Checkout do código-fonte.
+### 3. Integration Tests
 
-Configuração do .NET SDK.
-
-Build dos projetos de testes unitários.
-
-Execução dos testes unitários localizados em PosTech.Contacts.UnitTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal (verbosity normal).
-
-3. Integration Tests
 Também depende da execução bem-sucedida do job de build (build).
-
 Executado em um runner self-hosted.
-
 Realiza:
+- Checkout do código-fonte.
+- Configuração do .NET SDK.
+- Build dos projetos de testes de integração.
+- Execução dos testes de integração localizados em PosTech.Contacts.IntegrationTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal.
 
-Checkout do código-fonte.
-
-Configuração do .NET SDK.
-
-Build dos projetos de testes de integração.
-
-Execução dos testes de integração localizados em PosTech.Contacts.IntegrationTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal.
-
-Finalidade
-Esse pipeline automatiza o processo de construção, validação e testes do código, garantindo que o build do projeto funcione corretamente e que os testes unitários e de integração sejam executados. Isso ajuda a manter a qualidade do código e facilita a detecção de erros. Quer ajustar ou adicionar algo a este fluxo? 😊
-
+### Finalidade
+Esse pipeline automatiza o processo de construção, validação e testes do código, garantindo que o build do projeto funcione corretamente e que os testes unitários e de integração sejam executados. Isso ajuda a manter a qualidade do código e facilita a detecção de erros.
 
 
 ## 📚 Contato
