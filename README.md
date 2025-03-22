@@ -124,7 +124,7 @@ Para monitorar a performance da aplicação de contatos, foram desenvolvidos pai
 
 As golden metrics são parâmetros essenciais para o monitoramento eficiente de sistemas. Cada uma delas desempenha um papel importante:
 
-- Erros: Mede a taxa de falhas em requisições, como respostas HTTP 5xx ou exceções.
+- Erros: Mede a taxa de falhas em requisições, como respostas HTTP 5xx, 4xx ou exceções.
 - Latência: Avalia o tempo total necessário para processar uma requisição, incluindo a resposta ao cliente.
 - Tráfego: Monitora o volume de solicitações ou a carga processada pelo sistema, refletindo sua utilização.
 - Saturação: Indica o nível de capacidade do sistema, apontando proximidade de sobrecarga ou limites operacionais.
