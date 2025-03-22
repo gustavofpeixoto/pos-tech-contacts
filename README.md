@@ -42,7 +42,7 @@ A principal característica da arquitetura limpa é a separação e independênc
 
 Representação das camadas:
 
-![Capa com o nome do curso da pós graduação](./assets/clean-architecture.png)
+![Clean Architecture](./assets/clean-architecture.png)
 
 ### Persistência de dados
 
@@ -68,7 +68,7 @@ A aplicação foi testada localmente utilizando o SDK .NET 8.0.11. Para instalar
 
 Para executar a aplicação, utilize o comando **dotnet run** e especifique o projeto **PosTech.Contacts.Api.csproj**, conforme demonstrado a seguir:
 
-![Capa com o nome do curso da pós graduação](./assets/dotnet-run-command.png)
+![Comando dotnet run](./assets/dotnet-run-command.png)
 
 ## Fase 2
 
@@ -128,6 +128,49 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 - Latência: Avalia o tempo total necessário para processar uma requisição, incluindo a resposta ao cliente.
 - Tráfego: Monitora o volume de solicitações ou a carga processada pelo sistema, refletindo sua utilização.
 - Saturação: Indica o nível de capacidade do sistema, apontando proximidade de sobrecarga ou limites operacionais.
+
+### Taxa de erros:
+
+#### Painel de Erros
+
+- Objetivo: Calcula a taxa de requisições HTTP recebidas que resultaram em códigos de status de erro (4xx ou 5xx) por minuto, agrupadas por endpoint, método HTTP e código de status.
+- Resumo: Essa métrica ajuda a monitorar a quantidade de erros HTTP por minuto, facilitando a análise detalhada dos problemas por endpoint, método e código de resposta.
+
+![Painel de Erros](./assets/error_panel.png)
+
+### Latência
+
+#### Painel de Latência
+
+- Objetivo: Calcula o tempo médio de duração das requisições HTTP (em milissegundos) nos últimos 5 minutos, agrupadas por instâncias e controladores específicos.
+- Resumo: A métrica fornece o tempo médio de duração das requisições HTTP em milissegundos, considerando requisições dos últimos 5 minutos, filtrado por instâncias e controladores específicos.
+
+![Painel de Latência](./assets/latency_panel.png)
+
+### Tráfego
+
+#### Painel de Requisições por Endpoint
+
+- Objetivo: Calcula a taxa de requisições HTTP recebidas por minuto nos últimos 3 minutos, agrupando os resultados por controlador, endpoint e método HTTP.
+- Resumo: A métrica monitora o volume de requisições HTTP recebidas por minuto nos últimos 3 minutos, permitindo uma análise detalhada com base no controlador, endpoint e método HTTP
+
+![Painel de Requisições por Endpoint](./assets/requests_per_endpoint_panel.png)
+
+#### Painel de Requisições por Segundo
+
+- Objetivo: Calcula a taxa de requisições HTTP recebidas por minuto, somando o total de requisições capturadas nos últimos 3 minutos.
+- Resumo: Essa métrica fornece o total de requisições HTTP recebidas por minuto ao longo dos últimos 3 minutos, para instâncias e controladores específicos. Isso é útil para monitorar o tráfego e identificar possíveis sobrecargas ou padrões de uso.
+
+![Painel de Requisições por Segundo](./assets/requests_per_second_panel.png)
+
+### Saturação
+
+#### Painel de Uso de Memória
+
+Objetivo: Calcula o total de memória utilizada pelo runtime do .NET em megabytes, permitindo monitorar o consumo de memória da aplicação.
+Resumo: A métrica fornece a quantidade total de memória utilizada pelo runtime do .NET em megabytes, sendo útil para identificar problemas relacionados ao consumo de memória, como possíveis vazamentos ou uso excessivo.
+
+![Painel de Uso de Memória](./assets/memory_panel.png)
 
 ## 📚 Contato
 
