@@ -156,21 +156,27 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 
 ![Painel de Requisições por Endpoint](./assets/requests_per_endpoint_panel.png)
 
-#### Painel de Requisições por Segundo
+#### Painel de Requisições por Minuto
 
 - Objetivo: Calcula a taxa de requisições HTTP recebidas por minuto, somando o total de requisições capturadas nos últimos 3 minutos.
 - Resumo: Essa métrica fornece o total de requisições HTTP recebidas por minuto ao longo dos últimos 3 minutos, para instâncias e controladores específicos. Isso é útil para monitorar o tráfego e identificar possíveis sobrecargas ou padrões de uso.
 
-![Painel de Requisições por Segundo](./assets/requests_per_second_panel.png)
+![Painel de Requisições por Minuto](./assets/requests_per_second_panel.png)
 
 ### Saturação
 
 #### Painel de Uso de Memória
 
-Objetivo: Calcula o total de memória utilizada pelo runtime do .NET em megabytes, permitindo monitorar o consumo de memória da aplicação.
-Resumo: A métrica fornece a quantidade total de memória utilizada pelo runtime do .NET em megabytes, sendo útil para identificar problemas relacionados ao consumo de memória, como possíveis vazamentos ou uso excessivo.
+- Objetivo: Calcula o total de memória utilizada pelo runtime do .NET em megabytes, permitindo monitorar o consumo de memória da aplicação.
+- Resumo: A métrica fornece a quantidade total de memória utilizada pelo runtime do .NET em megabytes, sendo útil para identificar problemas relacionados ao consumo de memória, como possíveis vazamentos ou uso excessivo.
 
 ![Painel de Uso de Memória](./assets/memory_panel.png)
+
+#### Painel de Uso da CPU
+
+- Objetivo: mede a utilização da CPU pelo runtime da aplicação .NET. Ela reflete a porcentagem de tempo em que o processador está ocupado executando tarefas associadas à aplicação
+
+![Painel de Uso da CPU](./assets/cpu_panel.png)
 
 ## 📚 Contato
 
