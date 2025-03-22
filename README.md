@@ -118,6 +118,16 @@ Realiza:
 ### Finalidade
 Esse pipeline automatiza o processo de construção, validação e testes do código, garantindo que o build do projeto funcione corretamente e que os testes unitários e de integração sejam executados. Isso ajuda a manter a qualidade do código e facilita a detecção de erros.
 
+### 📊 Métricas
+
+Para monitorar a performance da aplicação de contatos, foram desenvolvidos painéis no Grafana, projetados para coletar e analisar as golden metrics. Esses indicadores oferecem informações valiosas sobre erros, latência, tráfego e saturação, permitindo identificar problemas de desempenho e manter o sistema otimizado.
+
+As golden metrics são parâmetros essenciais para o monitoramento eficiente de sistemas. Cada uma delas desempenha um papel importante:
+
+- Erros: Mede a taxa de falhas em requisições, como respostas HTTP 5xx ou exceções.
+- Latência: Avalia o tempo total necessário para processar uma requisição, incluindo a resposta ao cliente.
+- Tráfego: Monitora o volume de solicitações ou a carga processada pelo sistema, refletindo sua utilização.
+- Saturação: Indica o nível de capacidade do sistema, apontando proximidade de sobrecarga ou limites operacionais.
 
 ## 📚 Contato
 
