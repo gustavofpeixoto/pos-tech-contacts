@@ -5,17 +5,19 @@
 # Índice 
 
 - [Descrição do projeto](#-descrição-do-projeto)
-- [Funcionalidades do aplicativo](#-funcionalidades-do-aplicativo)
-- [Técnicas e tecnologias utilizadas](#%EF%B8%8F-técnicas-e-tecnologias-utilizadas)
-- [Abrir e rodar o projeto](#-abrir-e-rodar-o-projeto)
+- [Fase 1](#fase-1)
+- [Fase 2](#fase-2)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
 
 Projeto em Desenvolvimento para o Tech Challenge da Pós-Graduação em Arquitetura de Sistemas .NET da FIAP.
-O objetivo do Tech Challenge é desenvolver um aplicativo utilizando a plataforma .NET 8 para o cadastro de contatos regionais. Este projeto considera a persistência de dados e a qualidade do software
+O objetivo do Tech Challenge é desenvolver um aplicativo utilizando a plataforma .NET 8 para o cadastro de contatos regionais. 
 
-## 🔨 Funcionalidades do aplicativo
+## Fase 1
+O desafio da primeira fase consiste em desenvolver um aplicativo para cadastro de contatos regionais, com ênfase na persistência de dados, na garantia da qualidade do software e ons princípios de engenharia de software.
+
+### 🔨 Funcionalidades do aplicativo
 
 ### Cadastro de contatos
 Cadastro de novos contatos, incluindo nome, sobrenome, telefone e e-mail. Cada contato é associado a um DDD correspondente à região.
@@ -30,7 +32,7 @@ Foram implementadas duas funcionalidades para a consulta de contatos:
 
 2 - Busca Avançada: Permite recuperar uma lista de contatos utilizando filtros como nome, sobrenome, DDD, e-mail ou telefone.
 
-## ✔️ Técnicas e tecnologias utilizadas
+### ✔️ Técnicas e tecnologias utilizadas
 
 ### Arquitetura
 
@@ -54,7 +56,7 @@ Para as validações, foi utilizada a biblioteca FluentValidation. Isso garante 
 
 Para facilitar o desenvolvimento, a manutenção e manter o código limpo e legível, é importante seguir os princípios SOLID, padrões de projetos e outras boas práticas, como o desacoplamento dos objetos. Dentro deste grupo de recomendações, a adoção do Mediator Pattern tem ganhado destaque. Neste projeto o Mediator foi implementado utilizando a biblioteca MediatR.
 
-## 📁 Abrir e rodar o projeto
+### 📁 Abrir e rodar o projeto
 
 ### Preparando o banco de dados
 
@@ -67,6 +69,55 @@ A aplicação foi testada localmente utilizando o SDK .NET 8.0.11. Para instalar
 Para executar a aplicação, utilize o comando **dotnet run** e especifique o projeto **PosTech.Contacts.Api.csproj**, conforme demonstrado a seguir:
 
 ![Capa com o nome do curso da pós graduação](./assets/dotnet-run-command.png)
+
+## Fase 2
+
+A etapa anterior do Tech Challenge focou no desenvolvimento de um aplicativo .NET para o cadastro de contatos regionais. Esse aplicativo incluía funcionalidades essenciais, como adicionar, consultar, atualizar e excluir contatos, utilizando ferramentas como Entity Framework Core para a persistência de dados, além da implementação de validações robustas. Agora, avançaremos no projeto, incorporando práticas de Integração Contínua (CI), testes de integração e monitoramento de desempenho, elevando a qualidade e a confiabilidade da aplicação a um novo patamar.
+
+### 🖍 Teste de integração
+
+O teste de integração tem como objetivo validar a interação entre os componentes do sistema, assegurando que consultas, comandos e operações de persistência sejam executados corretamente. Para isso, foi configurado um banco de dados real **SqlDb-PosTech-Contacts-Integration-Tests**, onde foram realizadas operações como salvar, buscar, atualizar e excluir dados, seguidas da validação dos resultados esperados. Importante destacar que o banco utilizado nos testes é isolado do ambiente de produção, garantindo a segurança e integridade dos dados.
+
+Os testes foram realizados utilizando a biblioteca xUnit, com a configuração de um banco de dados que é criado uma única vez e reutilizado ao longo de toda a suíte de testes.
+
+As outras abordagens possíveis seriam:
+
+- Um por Teste: um banco de dados é criado individualmente para cada teste.
+- Um por Classe de Teste: um banco de dados é configurado para cada classe de teste e compartilhado entre todos os testes dessa classe.
+
+### 🚀 Pipeline de CI (**C**ontinuous **I**ntegration)
+
+### 1. Build
+
+Executado em um runner self-hosted.
+- Faz o checkout do código-fonte;
+- Configura o .NET SDK (versão 8.0.x);
+- Restaura as dependências do projeto com o comando dotnet restore;
+- Faz o build de todos os projetos no modo Debug utilizando dotnet build.
+
+### 2. Unit Tests 
+
+Depende da execução bem-sucedida do job anterior (build).
+Executado em um runner self-hosted.
+Realiza:
+- Checkout do código-fonte;
+- Configuração do .NET SDK;
+- Build dos projetos de testes unitários;
+- Execução dos testes unitários localizados em PosTech.Contacts.UnitTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal (verbosity normal).
+
+### 3. Integration Tests
+
+Também depende da execução bem-sucedida do job de build (build).
+Executado em um runner self-hosted.
+Realiza:
+- Checkout do código-fonte.
+- Configuração do .NET SDK.
+- Build dos projetos de testes de integração.
+- Execução dos testes de integração localizados em PosTech.Contacts.IntegrationTests com dotnet test no modo Debug, sem rebuild e com nível de detalhamento normal.
+
+### Finalidade
+Esse pipeline automatiza o processo de construção, validação e testes do código, garantindo que o build do projeto funcione corretamente e que os testes unitários e de integração sejam executados. Isso ajuda a manter a qualidade do código e facilita a detecção de erros.
+
 
 ## 📚 Contato
 
