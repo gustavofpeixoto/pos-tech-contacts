@@ -161,7 +161,7 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 - Objetivo: Calcula a taxa de requisições HTTP recebidas por minuto, somando o total de requisições capturadas nos últimos 3 minutos.
 - Resumo: Essa métrica fornece o total de requisições HTTP recebidas por minuto ao longo dos últimos 3 minutos, para instâncias e controladores específicos. Isso é útil para monitorar o tráfego e identificar possíveis sobrecargas ou padrões de uso.
 
-![Painel de Requisições por Minuto](./assets/requests_per_second_panel.png)
+![Painel de Requisições por Minuto](./assets/requests_per_minute_panel.png)
 
 ### Saturação
 
