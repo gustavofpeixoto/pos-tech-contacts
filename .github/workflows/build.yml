@@ -18,7 +18,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore PosTech.Contacts.sln
 
       - name: Build all projects
         run: dotnet build --configuration Debug
