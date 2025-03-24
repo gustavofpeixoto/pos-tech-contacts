@@ -1,7 +1,7 @@
 --Inserir Regiões
 INSERT INTO Regions VALUES ('01911aea-453b-41c7-b414-b66dc7980985', 'Região Norte');
 INSERT INTO Regions VALUES ('3a7f11f9-8dac-4b83-acbe-dc80b0209930', 'Região Nordeste');
-INSERT INTO Regions VALUES ('e9fce5b3-ab5b-4d7f-91cd-13d7479a5267' 'Região Centro-Oeste');
+INSERT INTO Regions VALUES ('e9fce5b3-ab5b-4d7f-91cd-13d7479a5267', 'Região Centro-Oeste');
 INSERT INTO Regions VALUES ('9e4864d8-c15d-4c2e-b2cd-9443df696a58', 'Região Sudeste');
 INSERT INTO Regions VALUES ('3a118ff4-455e-41fb-afe6-52527efa5978', 'Região Sul');
 
