@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Services;
+using PosTech.Contacts.Infrastructure.Messaging;
 using PosTech.Contacts.Infrastructure.Repositories;
 using PosTech.Contacts.Infrastructure.Services;
+using PosTech.Contacts.Infrastructure.Settings;
 
 namespace PosTech.Contacts.Infrastructure
 {
@@ -26,6 +29,12 @@ namespace PosTech.Contacts.Infrastructure
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IDddRepository, DddRepository>();
             services.AddSingleton<ICacheService, CacheService>();
+            services.AddSingleton<IMessagingProducer>(serviceProvider => 
+            {
+                var rabbitMqSettings = configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
+                return new RabbitMqMessagingProducer(rabbitMqSettings);
+            });
+
             services.AddDistributedMemoryCache();
 
             return services;
