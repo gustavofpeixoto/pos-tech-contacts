@@ -46,6 +46,18 @@ services:
       - prometheus
     container_name: grafana
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "L38IwqjTXku0mxvCtKvNqw"
+    ports:
+      - "15672:15672"
+    networks:
+      - metrics
+    container_name: rabbitmq
+
 networks:
   metrics:
     driver: bridge
