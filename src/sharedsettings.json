@@ -1,0 +1,8 @@
+{
+  "RabbitMq": {
+    "HostName": "localhost",
+    "VirtualHost": "contacts",
+    "UserName": "usr-contacts",
+    "Password": "83jzfX8v0USwDcocmIii6Q"
+  }
+}

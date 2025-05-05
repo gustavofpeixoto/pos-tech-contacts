@@ -30,5 +30,13 @@ namespace PosTech.Contacts.Infrastructure
 
             return services;
         }
+
+        public static IConfigurationBuilder AddJsonFileByName(this IConfigurationBuilder configurationBuilder, string jsonFileName)
+        {
+            var currentDirectory = AppContext.BaseDirectory;
+            var filePath = Path.Combine(currentDirectory, $"{jsonFileName}.json");
+
+            return configurationBuilder.AddJsonFile(filePath, optional: false, reloadOnChange: true);
+        }
     }
 }
