@@ -17,6 +17,8 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration.AddJsonFileByName("sharedsettings");
+
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .CreateLogger();
