@@ -8,7 +8,7 @@ using PosTech.Contacts.Infrastructure.Services;
 
 namespace PosTech.Contacts.Infrastructure
 {
-    public static class ServiceExtension
+    public static class ExtensionMethods
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
