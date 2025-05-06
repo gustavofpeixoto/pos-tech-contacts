@@ -4,6 +4,7 @@ using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Handlers;
+using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories;
 
 namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
@@ -13,6 +14,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
         private readonly Mock<IContactRepository> _contactRepositoryMock;
         private readonly Mock<IDddRepository> _dddRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<IMessagingProducer> _messagingProducerMock;
         private readonly CreateContactCommandHandler _createContactCommandHandler;
 
         public CreateContactCommandHandlerTest()
@@ -20,16 +22,26 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             _contactRepositoryMock = new Mock<IContactRepository>();
             _dddRepositoryMock = new Mock<IDddRepository>();
             _mapperMock = new Mock<IMapper>();
+            _messagingProducerMock = new Mock<IMessagingProducer>();
 
-            _createContactCommandHandler = new CreateContactCommandHandler(_contactRepositoryMock.Object,
-                _dddRepositoryMock.Object, _mapperMock.Object);
+            _createContactCommandHandler = new CreateContactCommandHandler(
+                _contactRepositoryMock.Object,
+                _dddRepositoryMock.Object, 
+                _mapperMock.Object,
+                _messagingProducerMock.Object);
         }
 
         [Fact]
         public async Task Create_Contact_Successfully()
         {
             //Arrange
-            var ddd = new Ddd { DddCode = 31, Id = Guid.NewGuid(), State = "MG" };
+            var ddd = new Ddd
+            {
+                DddCode = 31,
+                Id = Guid.NewGuid(),
+                State = "MG",
+                Region = new Region { RegionName = "Região Sudeste" }
+            };
             var contactResponse = new ContactResponseDto
             {
                 Ddd = ddd.DddCode,
