@@ -32,10 +32,13 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
             await contactRepository.AddContactAsync(contact);
 
-            Log.Information("Contato persistido no banco de dados com sucesso. Id: {contactId}", contact.Id);
+            Log.Information("Contato persistido no banco de dados com sucesso. Id do contato: {contactId}", contact.Id);
 
             var contactDto = mapper.Map<ContactResponseDto>(contact);
             var contactCreatedMessage = (ContactCreatedMessage)contact;
+
+            Log.Information("Enviando mensagem de contato criado. Id do contato: {contactId} | Nome da fila: {ContactUpdated}", 
+                contact.Id, QueueNames.ContactCreated);
 
             await messagingProducer.SendAsync(contactCreatedMessage, QueueNames.ContactCreated);
 
