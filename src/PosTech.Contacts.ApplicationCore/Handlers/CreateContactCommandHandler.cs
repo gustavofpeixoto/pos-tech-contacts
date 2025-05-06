@@ -37,7 +37,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
             var contactDto = mapper.Map<ContactResponseDto>(contact);
             var contactCreatedMessage = (ContactCreatedMessage)contact;
 
-            Log.Information("Enviando mensagem de contato criado. Id do contato: {contactId} | Nome da fila: {ContactUpdated}", 
+            Log.Information("Enviando mensagem de contato criado. Id do contato: {contactId} | Nome da fila: {ContactCreated}", 
                 contact.Id, QueueNames.ContactCreated);
 
             await messagingProducer.SendAsync(contactCreatedMessage, QueueNames.ContactCreated);
