@@ -54,6 +54,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "L38IwqjTXku0mxvCtKvNqw"
     ports:
       - "15672:15672"
+      - "5672:5672"
     networks:
       - metrics
     container_name: rabbitmq
