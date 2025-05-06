@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace PosTech.Contacts.Api.Settings
+namespace PosTech.Contacts.Search.Api.Settings
 {
     public partial class OutboundParameterTransformerSetting : IOutboundParameterTransformer
     {
