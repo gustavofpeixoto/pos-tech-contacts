@@ -3,23 +3,23 @@ using MediatR;
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories;
 using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class CreateContactCommandHandler(IContactRepository contactRepository, IDddRepository dddRepository, IMapper mapper)
-        : IRequestHandler<CreateContactCommand, ContactResponseDto>
+    public class CreateContactCommandHandler(
+        IContactRepository contactRepository,
+        IDddRepository dddRepository,
+        IMapper mapper,
+        IMessagingProducer messagingProducer) : IRequestHandler<CreateContactCommand, ContactResponseDto>
     {
-        private readonly IContactRepository _contactRepository = contactRepository;
-        private readonly IDddRepository _dddRepository = dddRepository;
-        private readonly IMapper _mapper = mapper;
-
         public async Task<ContactResponseDto> Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
             Log.Information("Iniciando persistência do contato na base de dados");
 
-            var ddd = await _dddRepository.GetByDddCodeAsync(request.Ddd);
+            var ddd = await dddRepository.GetByDddCodeAsync(request.Ddd);
             var contact = new Contact
             {
                 Ddd = ddd,
@@ -30,11 +30,14 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 Surname = request.Surname,
             };
 
-            await _contactRepository.AddContactAsync(contact);
+            await contactRepository.AddContactAsync(contact);
 
             Log.Information("Contato persistido no banco de dados com sucesso. Id: {contactId}", contact.Id);
 
-            var contactDto = _mapper.Map<ContactResponseDto>(contact);
+            var contactDto = mapper.Map<ContactResponseDto>(contact);
+            var contactCreatedMessage = (ContactCreatedMessage)contact;
+
+            await messagingProducer.SendAsync(contactCreatedMessage, QueueNames.ContactCreated);
 
             return contactDto;
         }
