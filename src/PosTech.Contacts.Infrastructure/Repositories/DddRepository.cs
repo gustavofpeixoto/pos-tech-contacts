@@ -8,9 +8,7 @@ namespace PosTech.Contacts.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _dbContext = dbContext;
 
-        public async Task<Ddd> GetByDddCodeAsync(int dddCode)
-        {
-            return await _dbContext.Ddds.FirstOrDefaultAsync(x => x.DddCode == dddCode);
-        }
+        public async Task<Ddd> GetByDddCodeAsync(int dddCode) 
+            => await _dbContext.Ddds.Include(ddd => ddd.Region).FirstOrDefaultAsync(x => x.DddCode == dddCode);
     }
 }
