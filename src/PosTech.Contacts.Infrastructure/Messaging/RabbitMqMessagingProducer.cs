@@ -22,7 +22,9 @@ namespace PosTech.Contacts.Infrastructure.Messaging
 
             using var channel = await connection.CreateChannelAsync();
 
-            await channel.QueueDeclareAsync(queue, exclusive: false);
+            await channel.QueueDeclareAsync(queue, 
+                exclusive: false, 
+                autoDelete: false);
 
             var serializedMessage = JsonSerializerHelper.Serialize(message);
             var messageBody = Encoding.UTF8.GetBytes(serializedMessage);
