@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PosTech.Contacts.ApplicationCore.Entities;
-using PosTech.Contacts.ApplicationCore.Repositories;
+using PosTech.Contacts.ApplicationCore.Repositories.Sql;
 using System.Linq.Expressions;
 
-namespace PosTech.Contacts.Infrastructure.Repositories
+namespace PosTech.Contacts.Infrastructure.Repositories.Sql
 {
     public class ContactRepository(ApplicationDbContext dbContext) : IContactRepository
     {

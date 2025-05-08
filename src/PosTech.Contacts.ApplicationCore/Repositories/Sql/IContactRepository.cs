@@ -1,7 +1,7 @@
 ﻿using PosTech.Contacts.ApplicationCore.Entities;
 using System.Linq.Expressions;
 
-namespace PosTech.Contacts.ApplicationCore.Repositories
+namespace PosTech.Contacts.ApplicationCore.Repositories.Sql
 {
     public interface IContactRepository
     {

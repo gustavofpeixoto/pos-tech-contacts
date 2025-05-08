@@ -6,6 +6,7 @@ using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories;
+using PosTech.Contacts.ApplicationCore.Repositories.Sql;
 
 namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
