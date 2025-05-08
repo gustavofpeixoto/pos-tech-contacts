@@ -5,7 +5,7 @@ using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories;
-using PosTech.Contacts.ApplicationCore.Repositories.Sql;
+using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
