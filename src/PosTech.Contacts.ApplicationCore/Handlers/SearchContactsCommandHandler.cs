@@ -11,12 +11,12 @@ using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class SearchContactsCommandHandler(ICacheService cacheService, IAddContactRepository addContactRepository,
+    public class SearchContactsCommandHandler(ICacheService cacheService, IContactRepository contactRepository,
         IDddRepository dddRepository, IMapper mapper)
         : IRequestHandler<SearchContactsCommand, List<ContactResponseDto>>
     {
         private readonly ICacheService _cacheService = cacheService;
-        private readonly IAddContactRepository _contactRepository = addContactRepository;
+        private readonly IContactRepository _contactRepository = contactRepository;
         private readonly IDddRepository _dddRepository = dddRepository;
         private readonly IMapper _mapper = mapper;
 

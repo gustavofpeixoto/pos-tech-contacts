@@ -8,15 +8,15 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class DeleteContactCommandHandlerTest
     {
-        private readonly Mock<IAddContactRepository> _repositoryMock;
+        private readonly Mock<IContactRepository> _contactRepositoryMock;
         private readonly Mock<IMessagingProducer> _messagingProducerMock;
         private readonly DeleteContactCommandHandler _deleteContactCommandHandler;
 
         public DeleteContactCommandHandlerTest()
         {
-            _repositoryMock = new Mock<IAddContactRepository>();
+            _contactRepositoryMock = new Mock<IContactRepository>();
             _messagingProducerMock = new Mock<IMessagingProducer>();
-            _deleteContactCommandHandler = new DeleteContactCommandHandler(_repositoryMock.Object, _messagingProducerMock.Object);
+            _deleteContactCommandHandler = new DeleteContactCommandHandler(_contactRepositoryMock.Object, _messagingProducerMock.Object);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             await _deleteContactCommandHandler.Handle(new DeleteContactCommand(), new CancellationToken());
 
             //Assert
-            _repositoryMock.Verify(x => x.DeleteContactAsync(It.IsAny<Guid>()), Times.Once);
+            _contactRepositoryMock.Verify(x => x.DeleteContactAsync(It.IsAny<Guid>()), Times.Once);
         }
     }
 }

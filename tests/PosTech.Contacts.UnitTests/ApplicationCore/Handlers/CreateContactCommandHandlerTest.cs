@@ -11,7 +11,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class CreateContactCommandHandlerTest
     {
-        private readonly Mock<IAddContactRepository> _repositoryMock;
+        private readonly Mock<IContactRepository> _contactRepositoryMock;
         private readonly Mock<IDddRepository> _dddRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<IMessagingProducer> _messagingProducerMock;
@@ -19,13 +19,13 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 
         public CreateContactCommandHandlerTest()
         {
-            _repositoryMock = new Mock<IAddContactRepository>();
+            _contactRepositoryMock = new Mock<IContactRepository>();
             _dddRepositoryMock = new Mock<IDddRepository>();
             _mapperMock = new Mock<IMapper>();
             _messagingProducerMock = new Mock<IMessagingProducer>();
 
             _createContactCommandHandler = new CreateContactCommandHandler(
-                _repositoryMock.Object,
+                _contactRepositoryMock.Object,
                 _dddRepositoryMock.Object, 
                 _mapperMock.Object,
                 _messagingProducerMock.Object);
@@ -60,7 +60,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 
             //Assert
             _dddRepositoryMock.Verify(x => x.GetByDddCodeAsync(It.IsAny<int>()), Times.Once());
-            _repositoryMock.Verify(x => x.AddContactAsync(It.IsAny<Contact>()), Times.Once());
+            _contactRepositoryMock.Verify(x => x.AddContactAsync(It.IsAny<Contact>()), Times.Once());
             Assert.NotNull(result);
             Assert.Equal(contactResponse.Ddd, result.Ddd);
             Assert.Equal(contactResponse.Email, result.Email);

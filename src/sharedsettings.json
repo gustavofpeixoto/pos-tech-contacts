@@ -1,6 +1,6 @@
 {
   "RabbitMq": {
-    "HostName": "localhost",
+    "HostName": "rabbitmq",
     "VirtualHost": "/",
     "UserName": "admin",
     "Password": "L38IwqjTXku0mxvCtKvNqw"
