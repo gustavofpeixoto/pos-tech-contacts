@@ -13,7 +13,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
     public class SearchContactsCommandHandlerTest
     {
         private readonly Mock<ICacheService> _cacheServiceMock;
-        private readonly Mock<IContactRepository> _contactRepositoryMock;
+        private readonly Mock<IAddContactRepository> _repositoryMock;
         private readonly Mock<IDddRepository> _dddRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
         private readonly SearchContactsCommandHandler _searchContactsCommandHandler;
@@ -21,10 +21,10 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
         public SearchContactsCommandHandlerTest()
         {
             _cacheServiceMock = new Mock<ICacheService>();
-            _contactRepositoryMock = new Mock<IContactRepository>();
+            _repositoryMock = new Mock<IAddContactRepository>();
             _dddRepositoryMock = new Mock<IDddRepository>();
             _mapperMock = new Mock<IMapper>();
-            _searchContactsCommandHandler = new SearchContactsCommandHandler(_cacheServiceMock.Object, _contactRepositoryMock.Object,
+            _searchContactsCommandHandler = new SearchContactsCommandHandler(_cacheServiceMock.Object, _repositoryMock.Object,
                 _dddRepositoryMock.Object, _mapperMock.Object);
         }
 
@@ -49,7 +49,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             var result = await _searchContactsCommandHandler.Handle(new SearchContactsCommand(), new CancellationToken());
 
             _cacheServiceMock.Verify(x => x.TryGetValue(It.IsAny<string>(), out It.Ref<List<ContactResponseDto>>.IsAny), Times.Once);
-            _contactRepositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<Guid>()), Times.Never());
+            _repositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<Guid>()), Times.Never());
             Assert.NotNull(result);
             Assert.Equal(contactResponseList, result);
         }
@@ -83,7 +83,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
                 Email = "validemail@email.com"
             };
 
-            _contactRepositoryMock.Setup(x => x.FindContactsAsync(It.IsAny<Expression<Func<Contact, bool>>>()))
+            _repositoryMock.Setup(x => x.FindContactsAsync(It.IsAny<Expression<Func<Contact, bool>>>()))
                 .ReturnsAsync(contactList);
             _mapperMock.Setup(x => x.Map<List<ContactResponseDto>>(It.IsAny<List<Contact>>())).Returns(contactResponseList);
             _dddRepositoryMock.Setup(x => x.GetByDddCodeAsync(It.IsAny<int>())).ReturnsAsync(ddd);
@@ -93,7 +93,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 
             //Assert
             _cacheServiceMock.Verify(x => x.TryGetValue(It.IsAny<string>(), out It.Ref<List<ContactResponseDto>>.IsAny), Times.Once);
-            _contactRepositoryMock.Verify(x => x.FindContactsAsync(It.IsAny<Expression<Func<Contact, bool>>>()), Times.Once());
+            _repositoryMock.Verify(x => x.FindContactsAsync(It.IsAny<Expression<Func<Contact, bool>>>()), Times.Once());
             _cacheServiceMock.Verify(x => x.SetAsync(It.IsAny<string>(), It.IsAny<List<ContactResponseDto>>(), It.IsAny<TimeSpan>()), Times.Once);
             Assert.NotNull(result);
             Assert.NotEmpty(result);

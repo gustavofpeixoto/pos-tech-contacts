@@ -8,11 +8,11 @@ using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class GetContactByIdCommandHandler(ICacheService cacheService, IContactRepository contactRepository, IMapper mapper)
+    public class GetContactByIdCommandHandler(ICacheService cacheService, IAddContactRepository addContactRepository, IMapper mapper)
         : IRequestHandler<GetContactByIdCommand, ContactResponseDto>
     {
         private readonly ICacheService _cacheService = cacheService;
-        private readonly IContactRepository _contactRepository = contactRepository;
+        private readonly IAddContactRepository _contactRepository = addContactRepository;
         private readonly IMapper _mapper = mapper;
 
         public async Task<ContactResponseDto> Handle(GetContactByIdCommand request, CancellationToken cancellationToken)

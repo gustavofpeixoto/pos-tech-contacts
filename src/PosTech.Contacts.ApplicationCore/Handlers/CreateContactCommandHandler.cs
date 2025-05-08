@@ -10,7 +10,7 @@ using Serilog;
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
     public class CreateContactCommandHandler(
-        IContactRepository contactRepository,
+        IAddContactRepository addContactRepository,
         IDddRepository dddRepository,
         IMapper mapper,
         IMessagingProducer messagingProducer) : IRequestHandler<CreateContactCommand, ContactResponseDto>
@@ -30,7 +30,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 Surname = request.Surname,
             };
 
-            await contactRepository.AddContactAsync(contact);
+            await addContactRepository.AddContactAsync(contact);
 
             Log.Information("Contato persistido no banco de dados com sucesso. Id do contato: {contactId}", contact.Id);
 

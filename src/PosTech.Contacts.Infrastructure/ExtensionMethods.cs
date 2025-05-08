@@ -26,7 +26,7 @@ namespace PosTech.Contacts.Infrastructure
                     });
             });
 
-            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IAddContactRepository, AddContactRepository>();
             services.AddScoped<IDddRepository, DddRepository>();
             services.AddSingleton<ICacheService, CacheService>();
             services.AddSingleton<IMessagingProducer>(serviceProvider => 

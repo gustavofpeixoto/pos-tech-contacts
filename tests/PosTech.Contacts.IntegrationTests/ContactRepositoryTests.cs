@@ -10,12 +10,12 @@ namespace PosTech.Contacts.IntegrationTests
     public class ContactRepositoryTests : IClassFixture<DatabaseFixture>
     {
         private readonly ApplicationDbContext _context;
-        private readonly ContactRepository _repository;
+        private readonly AddContactRepository _repository;
 
         public ContactRepositoryTests(DatabaseFixture fixture)
         {
             _context = fixture.Context;
-            _repository = new ContactRepository(_context);
+            _repository = new AddContactRepository(_context);
         }
 
         [Fact]

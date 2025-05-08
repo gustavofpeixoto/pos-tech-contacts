@@ -11,7 +11,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class UpdateContactCommandHandlerTest
     {
-        private readonly Mock<IContactRepository> _contactRepositoryMock;
+        private readonly Mock<IAddContactRepository> _repositoryMock;
         private readonly Mock<IDddRepository> _dddRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<IMessagingProducer> _messagingProducerMock;
@@ -19,12 +19,12 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 
         public UpdateContactCommandHandlerTest()
         {
-            _contactRepositoryMock = new Mock<IContactRepository>();
+            _repositoryMock = new Mock<IAddContactRepository>();
             _dddRepositoryMock = new Mock<IDddRepository>();
             _mapperMock = new Mock<IMapper>();
             _messagingProducerMock = new Mock<IMessagingProducer>();
             _updateContactCommandHandler = new UpdateContactCommandHandler(
-                _contactRepositoryMock.Object,
+                _repositoryMock.Object,
                 _dddRepositoryMock.Object,
                 _mapperMock.Object,
                 _messagingProducerMock.Object);
@@ -66,15 +66,15 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
                 Surname = "NewValidSurname"
             };
 
-            _contactRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(storageContact);
+            _repositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(storageContact);
             _mapperMock.Setup(x => x.Map<ContactResponseDto>(It.IsAny<Contact>())).Returns(contactResponse);
 
             //Act
             var result = await _updateContactCommandHandler.Handle(command, new CancellationToken());
 
             //Assert
-            _contactRepositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<Guid>()), Times.Once());
-            _contactRepositoryMock.Verify(x => x.UpdateContactAsync(It.IsAny<Contact>()), Times.Once());
+            _repositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<Guid>()), Times.Once());
+            _repositoryMock.Verify(x => x.UpdateContactAsync(It.IsAny<Contact>()), Times.Once());
             Assert.NotNull(result);
             Assert.Equal(command.Email, result.Email);
             Assert.Equal(command.Name, result.Name);

@@ -10,7 +10,7 @@ using Serilog;
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
     public class UpdateContactCommandHandler(
-        IContactRepository contactRepository,
+        IAddContactRepository addContactRepository,
         IDddRepository dddRepository,
         IMapper mapper,
         IMessagingProducer messagingProducer) : IRequestHandler<UpdateContactCommand, ContactResponseDto>
@@ -21,7 +21,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
         {
             Log.Information("Iniciando atualização do contato. Id do contato: {contactId}", request.Id);
 
-            var storagedContact = await contactRepository.GetByIdAsync(request.Id);
+            var storagedContact = await addContactRepository.GetByIdAsync(request.Id);
 
             if (storagedContact is null)
             {
@@ -32,7 +32,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
             var updatedContact = await UpdateContactAsync(storagedContact, request);
 
-            await contactRepository.UpdateContactAsync(updatedContact);
+            await addContactRepository.UpdateContactAsync(updatedContact);
 
             Log.Information("Contato atualizado com sucesso. Id do contato: {contactId}", request.Id);
 

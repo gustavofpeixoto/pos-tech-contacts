@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Repositories
 {
-    public interface IContactRepository
+    public interface IAddContactRepository
     {
         Task AddContactAsync(Contact contact);
         Task DeleteContactAsync(Guid id);

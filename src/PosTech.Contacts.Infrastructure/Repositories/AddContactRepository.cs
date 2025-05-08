@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PosTech.Contacts.Infrastructure.Repositories
 {
-    public class ContactRepository(ApplicationDbContext dbContext) : IContactRepository
+    public class AddContactRepository(ApplicationDbContext dbContext) : IAddContactRepository
     {
         private readonly ApplicationDbContext _dbContext = dbContext;
 
