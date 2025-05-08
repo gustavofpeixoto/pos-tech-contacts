@@ -2,7 +2,7 @@
 using MediatR;
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using Serilog;
