@@ -59,6 +59,36 @@ services:
       - metrics
     container_name: rabbitmq
 
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: rHQaXMpbu02xTHkOpcyREw
+    volumes:
+      - C:/Users/Gustavo/source/volumes:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - metrics
+    container_name: mongo
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: gustavofpeixoto
+      ME_CONFIG_BASICAUTH_PASSWORD: local
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rHQaXMpbu02xTHkOpcyREw
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - 8081:8081
+    networks:
+      - metrics
+    container_name: mongo-express
+
 networks:
   metrics:
     driver: bridge
