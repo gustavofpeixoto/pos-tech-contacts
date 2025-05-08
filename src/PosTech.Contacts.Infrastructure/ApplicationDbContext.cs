@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 using System.Reflection;
 
 namespace PosTech.Contacts.Infrastructure

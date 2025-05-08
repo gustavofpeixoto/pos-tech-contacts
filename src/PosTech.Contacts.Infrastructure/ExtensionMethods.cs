@@ -2,11 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PosTech.Contacts.ApplicationCore.Messaging;
-using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using PosTech.Contacts.ApplicationCore.Services;
 using PosTech.Contacts.Infrastructure.Messaging;
-using PosTech.Contacts.Infrastructure.Repositories;
 using PosTech.Contacts.Infrastructure.Repositories.Command;
 using PosTech.Contacts.Infrastructure.Services;
 using PosTech.Contacts.Infrastructure.Settings;

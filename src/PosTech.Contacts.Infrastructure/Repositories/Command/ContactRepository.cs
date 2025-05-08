@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using System.Linq.Expressions;
 

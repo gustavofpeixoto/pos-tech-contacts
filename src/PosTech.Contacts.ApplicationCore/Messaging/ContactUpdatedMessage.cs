@@ -1,4 +1,4 @@
-﻿using PosTech.Contacts.ApplicationCore.Entities;
+﻿using PosTech.Contacts.ApplicationCore.Entities.Command;
 
 namespace PosTech.Contacts.ApplicationCore.Messaging
 {

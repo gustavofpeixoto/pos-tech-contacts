@@ -1,4 +1,4 @@
-﻿using PosTech.Contacts.ApplicationCore.Entities;
+﻿using PosTech.Contacts.ApplicationCore.Entities.Command;
 using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Repositories.Command
