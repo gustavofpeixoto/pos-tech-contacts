@@ -2,7 +2,7 @@
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.Messaging;
-using PosTech.Contacts.ApplicationCore.Repositories.Sql;
+using PosTech.Contacts.ApplicationCore.Repositories.Command;
 
 namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {

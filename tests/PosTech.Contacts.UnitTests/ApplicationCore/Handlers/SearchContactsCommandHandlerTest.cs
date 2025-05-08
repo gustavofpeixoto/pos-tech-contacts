@@ -5,7 +5,7 @@ using PosTech.Contacts.ApplicationCore.DTOs.Responses;
 using PosTech.Contacts.ApplicationCore.Entities;
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Repositories;
-using PosTech.Contacts.ApplicationCore.Repositories.Sql;
+using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using PosTech.Contacts.ApplicationCore.Services;
 using System.Linq.Expressions;
 
