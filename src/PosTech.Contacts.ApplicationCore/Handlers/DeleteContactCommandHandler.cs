@@ -6,7 +6,9 @@ using Serilog;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class DeleteContactCommandHandler(IContactRepository contactRepository, IMessagingProducer messagingProducer) : IRequestHandler<DeleteContactCommand>
+    public class DeleteContactCommandHandler(
+        IContactRepository contactRepository, 
+        IMessagingProducer messagingProducer) : IRequestHandler<DeleteContactCommand>
     {
         public async Task Handle(DeleteContactCommand request, CancellationToken cancellationToken)
         {

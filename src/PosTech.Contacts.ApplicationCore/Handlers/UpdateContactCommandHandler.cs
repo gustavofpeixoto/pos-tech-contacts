@@ -15,8 +15,6 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
         IMapper mapper,
         IMessagingProducer messagingProducer) : IRequestHandler<UpdateContactCommand, ContactResponseDto>
     {
-
-
         public async Task<ContactResponseDto> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
         {
             Log.Information("Iniciando atualização do contato. Id do contato: {contactId}", request.Id);
