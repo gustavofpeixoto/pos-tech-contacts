@@ -16,5 +16,20 @@ builder.Services.AddHostedService(sp =>
     return new ContactCreatedMessageConsumer(contactRepository, rabbitMqSettings);
 });
 
+builder.Services.AddHostedService(sp =>
+{
+    var contactRepository = sp.GetRequiredService<IContactRepository>();
+    return new ContactUpdatedMessageConsumer(contactRepository, rabbitMqSettings);
+});
+
+
+builder.Services.AddHostedService(sp =>
+{
+    var contactRepository = sp.GetRequiredService<IContactRepository>();
+    return new ContactDeletedMessageConsumer(contactRepository, rabbitMqSettings);
+});
+
+
 var host = builder.Build();
+
 host.Run();
