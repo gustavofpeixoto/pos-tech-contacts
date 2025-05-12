@@ -1,3 +1,4 @@
+using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.Infrastructure;
 using PosTech.Contacts.Infrastructure.Settings;
 using PosTech.Contacts.Worker.Consumers;
@@ -9,9 +10,10 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var rabbitMqSettings = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
 
-builder.Services.AddHostedService(x => 
+builder.Services.AddHostedService(sp =>
 {
-    return new ContactCreatedMessageConsumer(rabbitMqSettings);
+    var contactRepository = sp.GetRequiredService<IContactRepository>();
+    return new ContactCreatedMessageConsumer(contactRepository, rabbitMqSettings);
 });
 
 var host = builder.Build();

@@ -29,7 +29,12 @@ namespace PosTech.Contacts.Infrastructure
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IDddRepository, DddRepository>();
             services.AddSingleton<ICacheService, CacheService>();
-            services.AddSingleton<IMessagingProducer>(serviceProvider => 
+            services.AddSingleton<ApplicationCore.Repositories.Query.IContactRepository, Repositories.Query.ContactRepository>(sp => 
+            {
+                var mongoDbSettings = configuration.GetSection("MongoDb").Get<MongoDbSettings>();
+                return new Repositories.Query.ContactRepository(mongoDbSettings);
+            });
+            services.AddSingleton<IMessagingProducer>(serviceProvider =>
             {
                 var rabbitMqSettings = configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
                 return new RabbitMqMessagingProducer(rabbitMqSettings);

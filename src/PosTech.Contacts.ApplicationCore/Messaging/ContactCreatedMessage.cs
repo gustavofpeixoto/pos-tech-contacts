@@ -1,6 +1,4 @@
-﻿using PosTech.Contacts.ApplicationCore.Entities.Command;
-
-namespace PosTech.Contacts.ApplicationCore.Messaging
+﻿namespace PosTech.Contacts.ApplicationCore.Messaging
 {
     public class ContactCreatedMessage
     {
@@ -13,7 +11,7 @@ namespace PosTech.Contacts.ApplicationCore.Messaging
         public string DddState { get; set; }
         public string RegionName { get; set; }
 
-        public static explicit operator ContactCreatedMessage(Contact contact)
+        public static explicit operator ContactCreatedMessage(Entities.Command.Contact contact)
         {
             return new ContactCreatedMessage
             {
@@ -25,6 +23,20 @@ namespace PosTech.Contacts.ApplicationCore.Messaging
                 DddCode = contact.Ddd.DddCode,
                 DddState = contact.Ddd.State,
                 RegionName = contact.Ddd.Region.RegionName,
+            };
+        }
+
+        public static explicit operator Entities.Query.Contact(ContactCreatedMessage contactCreatedMessage)
+        {
+            return new Entities.Query.Contact(contactCreatedMessage.ContactId)
+            {
+                DddCode = contactCreatedMessage.DddCode,
+                DddState = contactCreatedMessage.DddState,
+                Email = contactCreatedMessage.ContactEmail,
+                Name = contactCreatedMessage.ContactName,
+                Phone = contactCreatedMessage.ContactPhone,
+                RegionName = contactCreatedMessage.RegionName,
+                Surname = contactCreatedMessage.ContactSurname,
             };
         }
     }

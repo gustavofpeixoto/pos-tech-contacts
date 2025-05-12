@@ -1,4 +1,7 @@
+using PosTech.Contacts.ApplicationCore.Entities.Query;
 using PosTech.Contacts.ApplicationCore.Messaging;
+using PosTech.Contacts.ApplicationCore.Repositories.Query;
+using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.Infrastructure.Settings;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -6,12 +9,12 @@ using System.Text;
 
 namespace PosTech.Contacts.Worker.Consumers
 {
-    public class ContactCreatedMessageConsumer(RabbitMqSettings settings) 
+    public class ContactCreatedMessageConsumer(IContactRepository contactRepository, RabbitMqSettings settings)
         : RabbitMqConsumer(settings)
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await ConnectAsync(QueueNames.ContactCreated,stoppingToken);
+            await ConnectAsync(QueueNames.ContactCreated, stoppingToken);
 
             var consumer = new AsyncEventingBasicConsumer(Channel);
             consumer.ReceivedAsync += ProcessMessageAsync;
@@ -29,7 +32,10 @@ namespace PosTech.Contacts.Worker.Consumers
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            Console.WriteLine($" [x] Received {message}");
+            var deserializedMessage = JsonSerializerHelper.Deserialize<ContactCreatedMessage>(message);
+            var contact = (Contact)deserializedMessage;
+
+            await contactRepository.AddAsync(contact);
         }
     }
 }
