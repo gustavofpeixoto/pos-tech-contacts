@@ -1,25 +1,53 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using PosTech.Contacts.ApplicationCore;
+using PosTech.Contacts.ApplicationCore.Validators;
+using PosTech.Contacts.Infrastructure;
+using PosTech.Contacts.Search.Api.Settings;
+using Prometheus;
+using Prometheus.DotNetRuntime;
+using Serilog;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration.AddJsonFileByName("sharedsettings");
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+var prometheusBuilder = DotNetRuntimeStatsBuilder.Default();
+prometheusBuilder = DotNetRuntimeStatsBuilder.Customize()
+    .WithContentionStats(CaptureLevel.Informational)
+    .WithGcStats(CaptureLevel.Verbose)
+    .WithThreadPoolStats(CaptureLevel.Informational)
+    .WithExceptionStats(CaptureLevel.Errors)
+    .WithJitStats();
+
+prometheusBuilder.RecycleCollectorsEvery(new TimeSpan(0, 20, 0));
+prometheusBuilder.StartCollecting();
+
+builder.Services
+    .AddControllers(options
+        => options.Conventions.Add(new RouteTokenTransformerConvention(new OutboundParameterTransformerSetting())))
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddSerilog();
+builder.Services.AddValidatorsFromAssemblyContaining<SearchContactValidator>();
+builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddSwaggerGen();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddApplicationCoreServices();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseHttpMetrics();
+app.UseMetricServer();
 app.MapControllers();
-
 app.Run();
