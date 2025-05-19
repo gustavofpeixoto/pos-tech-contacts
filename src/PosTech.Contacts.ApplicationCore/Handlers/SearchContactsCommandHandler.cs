@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
-using PosTech.Contacts.ApplicationCore.Entities.Command;
-using PosTech.Contacts.ApplicationCore.Repositories.Command;
+using PosTech.Contacts.ApplicationCore.Entities.Query;
+using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.ApplicationCore.Services;
 using Serilog;
@@ -11,52 +10,37 @@ using System.Linq.Expressions;
 
 namespace PosTech.Contacts.ApplicationCore.Handlers
 {
-    public class SearchContactsCommandHandler(ICacheService cacheService, IContactRepository contactRepository,
-        IDddRepository dddRepository, IMapper mapper)
+    public class SearchContactsCommandHandler(
+        ICacheService cacheService,
+        IContactRepository contactRepository)
         : IRequestHandler<SearchContactsCommand, List<ContactResponseDto>>
     {
-        private readonly ICacheService _cacheService = cacheService;
-        private readonly IContactRepository _contactRepository = contactRepository;
-        private readonly IDddRepository _dddRepository = dddRepository;
-        private readonly IMapper _mapper = mapper;
-
         public async Task<List<ContactResponseDto>> Handle(SearchContactsCommand request, CancellationToken cancellationToken)
         {
             var key = JsonSerializerHelper.Serialize(request);
 
             Log.Information("Iniciando busca de contatos com base nos filtros informados.");
 
-            if (_cacheService.TryGetValue<List<ContactResponseDto>>(key, out var contacts))
+            if (cacheService.TryGetValue<List<ContactResponseDto>>(key, out var contacts))
             {
                 Log.Information("Retornando contatos armazenados no cache.");
 
                 return contacts;
             }
 
-            await AddDddIdAsync(request);
-
             var filters = CreateFilters(request);
             var expression = CreateExpression(filters);
-            var storageContacts = await _contactRepository.FindContactsAsync(expression);
+            var storageContacts = await contactRepository.FindContactsAsync(expression);
 
-            contacts = _mapper.Map<List<ContactResponseDto>>(storageContacts);
+            contacts = storageContacts.Select(contact => (ContactResponseDto)contact).ToList();
 
             Log.Information("Armazenando contatos no cache");
 
-            await _cacheService.SetAsync(key, contacts, TimeSpan.FromMinutes(10));
+            await cacheService.SetAsync(key, contacts, TimeSpan.FromMinutes(10));
 
             Log.Information("Busca de contatos finalizada.");
 
             return contacts;
-        }
-
-        private async Task AddDddIdAsync(SearchContactsCommand request)
-        {
-            if (request.DddCode == default) return;
-
-            var ddd = await _dddRepository.GetByDddCodeAsync(request.DddCode);
-
-            request.DddId = ddd.Id;
         }
 
         private static List<Filter> CreateFilters(SearchContactsCommand request)
@@ -68,15 +52,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
             foreach (var property in properties)
             {
-                if (property.Name == nameof(SearchContactsCommand.DddCode)) continue;
                 if (property.GetValue(request) is null) continue;
-
-                if (property.PropertyType == typeof(Guid))
-                {
-                    if ((Guid)property.GetValue(request) != default)
-                        filters.Add(new Filter { ColumnName = property.Name, Value = property.GetValue(request).ToString() });
-                    continue;
-                }
 
                 if (!string.IsNullOrEmpty(property.GetValue(request).ToString()))
                 {
@@ -104,7 +80,7 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
                 }
                 else
                 {
-                    constant = Expression.Constant(new Guid(filter.Value));
+                    constant = Expression.Constant(Convert.ToInt32(filter.Value));
                     comparison = Expression.Equal(property, constant);
                 }
 
