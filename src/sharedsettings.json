@@ -1,12 +1,12 @@
 {
   "RabbitMq": {
-    "HostName": "localhost",
+    "HostName": "rabbitmq",
     "VirtualHost": "/",
     "UserName": "admin",
     "Password": "L38IwqjTXku0mxvCtKvNqw"
   },
   "MongoDb": {
-    "ConnectionString": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@localhost:27017",
+    "ConnectionString": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@mongo:27017",
     "DatabaseName": "pos-tech-contacts"
   }
 }
