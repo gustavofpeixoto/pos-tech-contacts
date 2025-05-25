@@ -27,7 +27,7 @@ namespace PosTech.Contacts.Worker.Consumers
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                Log.Information($"Worker ativo em: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                Log.Information($"Worker {nameof(ContactDeletedMessageConsumer)} ativo em: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             }
         }
 
