@@ -8,5 +8,6 @@
   "MongoDb": {
     "ConnectionString": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@mongo:27017",
     "DatabaseName": "pos-tech-contacts"
-  }
+  },
+  "CronSchedule": "*/1 * * * * ?"
 }
