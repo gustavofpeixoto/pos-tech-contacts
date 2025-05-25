@@ -1,6 +1,7 @@
 ﻿using PosTech.Contacts.Infrastructure.Settings;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Serilog;
 
 namespace PosTech.Contacts.Worker.Consumers
 {
@@ -18,8 +19,18 @@ namespace PosTech.Contacts.Worker.Consumers
                 Password = settings.Password,
             };
 
-            if (Connection is null || !Connection.IsOpen) Connection = await connectionFactory.CreateConnectionAsync(stoppingToken);
-            if (Channel is null || !Channel.IsOpen) Channel = await Connection.CreateChannelAsync(cancellationToken: stoppingToken);
+            if (Connection is null || !Connection.IsOpen)
+            {
+                Log.Information("Criando conexão para fila: {queueName}");
+
+                Connection = await connectionFactory.CreateConnectionAsync(stoppingToken);
+            }
+            if (Channel is null || !Channel.IsOpen)
+            {
+                Log.Information("Criando canal para fila: {queueName}");
+
+                Channel = await Connection.CreateChannelAsync(cancellationToken: stoppingToken);
+            }
 
             await Channel.QueueDeclareAsync(queue: queueName,
                 exclusive: false,
