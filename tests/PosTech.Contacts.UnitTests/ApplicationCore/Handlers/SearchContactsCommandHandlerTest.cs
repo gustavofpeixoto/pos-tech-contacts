@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Moq;
+﻿using Moq;
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
-using PosTech.Contacts.ApplicationCore.Entities;
-using PosTech.Contacts.ApplicationCore.Entities.Command;
+using PosTech.Contacts.ApplicationCore.Entities.Query;
 using PosTech.Contacts.ApplicationCore.Handlers;
-using PosTech.Contacts.ApplicationCore.Repositories.Command;
+using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.ApplicationCore.Services;
 using System.Linq.Expressions;
 
@@ -15,28 +13,22 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
     {
         private readonly Mock<ICacheService> _cacheServiceMock;
         private readonly Mock<IContactRepository> _contactRepositoryMock;
-        private readonly Mock<IDddRepository> _dddRepositoryMock;
-        private readonly Mock<IMapper> _mapperMock;
         private readonly SearchContactsCommandHandler _searchContactsCommandHandler;
 
         public SearchContactsCommandHandlerTest()
         {
             _cacheServiceMock = new Mock<ICacheService>();
             _contactRepositoryMock = new Mock<IContactRepository>();
-            _dddRepositoryMock = new Mock<IDddRepository>();
-            _mapperMock = new Mock<IMapper>();
-            _searchContactsCommandHandler = new SearchContactsCommandHandler(_cacheServiceMock.Object, _contactRepositoryMock.Object,
-                _dddRepositoryMock.Object, _mapperMock.Object);
+            _searchContactsCommandHandler = new SearchContactsCommandHandler(_cacheServiceMock.Object, _contactRepositoryMock.Object);
         }
 
         [Fact]
         public async Task Get_Contact_List_Without_Access_Data_Base()
         {
             //Arrange
-            var ddd = new Ddd { DddCode = 31, Id = Guid.NewGuid(), State = "MG" };
             var contactResponse = new ContactResponseDto
             {
-                Ddd = ddd.DddCode,
+                Ddd = 31,
                 Email = "validemail@email.com",
                 Name = "ValidName",
                 Phone = "99999999",
@@ -50,7 +42,10 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             var result = await _searchContactsCommandHandler.Handle(new SearchContactsCommand(), new CancellationToken());
 
             _cacheServiceMock.Verify(x => x.TryGetValue(It.IsAny<string>(), out It.Ref<List<ContactResponseDto>>.IsAny), Times.Once);
-            _contactRepositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<Guid>()), Times.Never());
+            _contactRepositoryMock.Verify(x => x.GetAsync(It.IsAny<Guid>()), Times.Never());
+
+            //Assert
+
             Assert.NotNull(result);
             Assert.Equal(contactResponseList, result);
         }
@@ -59,10 +54,10 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
         public async Task Get_Contact_List_Accessing_Data_Base()
         {
             //Arrange
-            var ddd = new Ddd { DddCode = 31, Id = Guid.NewGuid(), State = "MG" };
-            var contact = new Contact
+            var contactId = Guid.NewGuid();
+            var contact = new Contact(contactId)
             {
-                Ddd = ddd,
+                DddCode = 31,
                 Email = "validemail@email.com",
                 Name = "ValidName",
                 Phone = "99999999",
@@ -71,7 +66,7 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             var contactList = new List<Contact> { contact };
             var contactResponse = new ContactResponseDto
             {
-                Ddd = ddd.DddCode,
+                Ddd = contact.DddCode,
                 Email = "validemail@email.com",
                 Name = "ValidName",
                 Phone = "99999999",
@@ -80,14 +75,12 @@ namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
             var contactResponseList = new List<ContactResponseDto> { contactResponse };
             var command = new SearchContactsCommand
             {
-                DddCode = ddd.DddCode,
+                DddCode = 31,
                 Email = "validemail@email.com"
             };
 
             _contactRepositoryMock.Setup(x => x.FindContactsAsync(It.IsAny<Expression<Func<Contact, bool>>>()))
                 .ReturnsAsync(contactList);
-            _mapperMock.Setup(x => x.Map<List<ContactResponseDto>>(It.IsAny<List<Contact>>())).Returns(contactResponseList);
-            _dddRepositoryMock.Setup(x => x.GetByDddCodeAsync(It.IsAny<int>())).ReturnsAsync(ddd);
 
             //Act
             var result = await _searchContactsCommandHandler.Handle(command, new CancellationToken());
