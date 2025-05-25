@@ -26,7 +26,7 @@ services:
     container_name: postech-contacts-search
 
   postech-contacts-worker:
-    image: postech/contacts:latest
+    image: postech/contacts.worker:latest
     environment:
       - ASPNETCORE_HTTP_PORTS=5082
     build:
