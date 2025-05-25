@@ -2,7 +2,6 @@ using PosTech.Contacts.ApplicationCore.Entities.Query;
 using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.ApplicationCore.Serialization;
-using PosTech.Contacts.Infrastructure.Settings;
 using Quartz;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -40,6 +39,7 @@ namespace PosTech.Contacts.Worker.Consumers
             Log.Information("Inserindo contato na base de leitura. Id do contato: {contactId} | Consumer: {consumer}", contact.Id, nameof(ContactCreatedMessageConsumer));
 
             await contactRepository.AddAsync(contact);
+            await Channel.BasicAckAsync(ea.DeliveryTag, false);
         }
     }
 }

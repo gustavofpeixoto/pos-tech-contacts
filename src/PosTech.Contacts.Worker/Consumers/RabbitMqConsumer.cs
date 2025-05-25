@@ -20,13 +20,13 @@ namespace PosTech.Contacts.Worker.Consumers
 
             if (Connection is null || !Connection.IsOpen)
             {
-                Log.Information("Criando conexão para fila: {queueName}");
+                Log.Information("Criando conexão para fila: {queueName}", queueName);
 
                 Connection = await connectionFactory.CreateConnectionAsync(stoppingToken);
             }
             if (Channel is null || !Channel.IsOpen)
             {
-                Log.Information("Criando canal para fila: {queueName}");
+                Log.Information("Criando canal para fila: {queueName}", queueName);
 
                 Channel = await Connection.CreateChannelAsync(cancellationToken: stoppingToken);
             }

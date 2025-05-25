@@ -39,6 +39,7 @@ namespace PosTech.Contacts.Worker.Consumers
             Log.Information("Atualizando contato na base de leitura. Id do contato: {contactId} | Consumer: {consumer}", contact.Id, nameof(ContactUpdatedMessageConsumer));
 
             await contactRepository.UpdateAsync(contact);
+            await Channel.BasicAckAsync(ea.DeliveryTag, false);
         }
     }
 }

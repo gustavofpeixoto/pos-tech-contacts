@@ -37,6 +37,7 @@ namespace PosTech.Contacts.Worker.Consumers
             Log.Information("Removendo contato na base de leitura. Id do contato: {contactId} | Consumer: {consumer}", deserializedMessage.ContactId, nameof(ContactDeletedMessageConsumer));
 
             await contactRepository.DeleteAsync(deserializedMessage.ContactId);
+            await Channel.BasicAckAsync(ea.DeliveryTag, false);
         }
     }
 }
