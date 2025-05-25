@@ -27,6 +27,8 @@ services:
 
   postech-contacts-worker:
     image: postech/contacts:latest
+    environment:
+      - ASPNETCORE_HTTP_PORTS=5082
     build:
       context: .
       dockerfile: src/PosTech.Contacts.Worker/Dockerfile
