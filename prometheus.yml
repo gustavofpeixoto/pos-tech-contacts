@@ -9,4 +9,9 @@ scrape_configs:
   - job_name: 'postech-contacts'
     scrape_interval: 5s
     static_configs:
-      - targets: [postech-contacts:8080]
+      - targets: [postech-contacts:5080]
+  
+  - job_name: 'postech-contacts-search'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [postech-contacts-search:5081]

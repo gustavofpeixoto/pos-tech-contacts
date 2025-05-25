@@ -7,10 +7,34 @@ services:
       context: .
       dockerfile: src/PosTech.Contacts.Api/Dockerfile
     ports:
-      - "8080:8080"
+      - "5080:5080"
     networks:
       - metrics
     container_name: postech-contacts
+
+  postech-contacts-search:
+    image: postech/contacts.search:latest
+    environment:
+      - ASPNETCORE_HTTP_PORTS=8080
+    build:
+      context: .
+      dockerfile: src/PosTech.Contacts.Search.Api/Dockerfile
+    ports:
+      - "5081:5081"
+    networks:
+      - metrics
+    container_name: postech-contacts-search
+
+  postech-contacts-worker:
+    image: postech/contacts:latest
+    build:
+      context: .
+      dockerfile: src/PosTech.Contacts.Worker/Dockerfile
+    ports:
+      - "5082:5082"
+    networks:
+      - metrics
+    container_name: postech-contacts-worker
   
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
