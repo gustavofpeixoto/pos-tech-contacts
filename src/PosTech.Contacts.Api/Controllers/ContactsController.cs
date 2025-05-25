@@ -22,31 +22,6 @@ namespace PosTech.Contacts.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("search")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<ContactResponseDto>))]
-        [SwaggerResponse(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> SearchContactsAsync(SearchContactRequestDto searchContactRequestDto)
-        {
-            var searchContactCommand = mapper.Map<SearchContactsCommand>(searchContactRequestDto);
-            var contacts = await mediator.Send(searchContactCommand);
-
-            if (contacts is null || contacts.Count == 0) return NoContent();
-
-            return Ok(contacts);
-        }
-
-        [HttpGet("{id:guid}")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ContactResponseDto))]
-        [SwaggerResponse(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetContactByIdAsync(Guid id)
-        {
-            var contact = await mediator.Send(new GetContactByIdCommand { Id = id });
-
-            if (contact is null) return NoContent();
-
-            return Ok(contact);
-        }
-
         [HttpPut("{id:guid}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ContactResponseDto))]
         [SwaggerResponse(StatusCodes.Status422UnprocessableEntity)]
