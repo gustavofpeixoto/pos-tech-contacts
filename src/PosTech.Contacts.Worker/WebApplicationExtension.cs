@@ -38,6 +38,5 @@ namespace PosTech.Contacts.Worker
 
             return app;
         }
-
     }
 }

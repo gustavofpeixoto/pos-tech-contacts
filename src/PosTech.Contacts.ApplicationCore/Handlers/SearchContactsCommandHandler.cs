@@ -52,7 +52,13 @@ namespace PosTech.Contacts.ApplicationCore.Handlers
 
             foreach (var property in properties)
             {
-                if (property.GetValue(request) is null) continue;
+                var propertyValue = property.GetValue(request);
+                var propertyType = property.PropertyType;
+
+                // Obtém o valor padrão do tipo da propriedade
+                var defaultValue = propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null;
+
+                if (propertyValue is null || object.Equals(propertyValue, defaultValue)) continue;
 
                 if (!string.IsNullOrEmpty(property.GetValue(request).ToString()))
                 {
