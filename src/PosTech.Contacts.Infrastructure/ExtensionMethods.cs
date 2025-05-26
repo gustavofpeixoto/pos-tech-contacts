@@ -29,6 +29,7 @@ namespace PosTech.Contacts.Infrastructure
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IDddRepository, DddRepository>();
             services.AddSingleton<ICacheService, CacheService>();
+            services.AddSingleton<RabbitMqConnectionManager>();
             services.AddSingleton<ApplicationCore.Repositories.Query.IContactRepository, Repositories.Query.ContactRepository>(sp =>
             {
                 var mongoDbSettings = configuration.GetSection("MongoDb").Get<MongoDbSettings>();

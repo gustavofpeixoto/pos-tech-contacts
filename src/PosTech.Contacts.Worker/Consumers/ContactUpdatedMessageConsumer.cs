@@ -2,6 +2,7 @@
 using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.ApplicationCore.Serialization;
+using PosTech.Contacts.Infrastructure.Messaging;
 using Quartz;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,8 +11,10 @@ using System.Text;
 
 namespace PosTech.Contacts.Worker.Consumers
 {
-    public class ContactUpdatedMessageConsumer(IConfiguration configuration, IContactRepository contactRepository)
-        : RabbitMqConsumer(configuration), IJob
+    public class ContactUpdatedMessageConsumer(
+        RabbitMqConnectionManager rabbitMqConnectionManager,
+        IContactRepository contactRepository)
+        : RabbitMqConsumer(rabbitMqConnectionManager), IJob
     {
         public async Task Execute(IJobExecutionContext context)
         {
@@ -29,17 +32,25 @@ namespace PosTech.Contacts.Worker.Consumers
 
         protected override async Task ProcessMessageAsync(object sender, BasicDeliverEventArgs ea)
         {
-            Log.Information("Serializando conteúdo da mensagem para o consumer: {consumer}", nameof(ContactUpdatedMessageConsumer));
+            try
+            {
+                Log.Information("Serializando conteúdo da mensagem para o consumer: {consumer}", nameof(ContactUpdatedMessageConsumer));
 
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
-            var deserializedMessage = JsonSerializerHelper.Deserialize<ContactUpdatedMessage>(message);
-            var contact = (Contact)deserializedMessage;
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var deserializedMessage = JsonSerializerHelper.Deserialize<ContactUpdatedMessage>(message);
+                var contact = (Contact)deserializedMessage;
 
-            Log.Information("Atualizando contato na base de leitura. Id do contato: {contactId} | Consumer: {consumer}", contact.Id, nameof(ContactUpdatedMessageConsumer));
+                Log.Information("Atualizando contato na base de leitura. Id do contato: {contactId} | Consumer: {consumer}", contact.Id, nameof(ContactUpdatedMessageConsumer));
 
-            await contactRepository.UpdateAsync(contact);
-            await Channel.BasicAckAsync(ea.DeliveryTag, false);
+                await contactRepository.UpdateAsync(contact);
+                await Channel.BasicAckAsync(ea.DeliveryTag, false);
+            }
+            catch (Exception e)
+            {
+                await Channel.BasicNackAsync(ea.DeliveryTag, false, false);
+                Log.Warning("Erro: {@e}", e);
+            }
         }
     }
 }
