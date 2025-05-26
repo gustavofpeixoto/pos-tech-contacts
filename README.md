@@ -178,6 +178,24 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 
 ![Painel de Uso da CPU](./assets/cpu_panel.png)
 
+## 🚀 Fase 3 – Evolução da API de Contatos  
+
+Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de **cadastro de contatos regionais**, incorporando **arquitetura de microsserviços** e **mensageria assíncrona** com **RabbitMQ**. O objetivo é refatorar a estrutura monolítica, tornando-a **mais escalável, modular e resiliente**, melhorando a comunicação entre serviços.  
+
+### 🔹 Principais Melhorias  
+1️⃣ **Arquitetura de Microsserviços + CRQS**  
+   - Separação por contexto, garantindo **baixo acoplamento** e **alta coesão**.  
+   - Separação da aplicação monplítica em 3 novas aplicações: microsserviço de **cadastro**, microsserviço de **busca** e microsserviço de **sincronização**, impplementando uma arquitetura avançada que implementa CQRS.  
+
+2️⃣ **Comunicação Assíncrona via RabbitMQ**  
+   - Mensageria garantindo **desempenho, escalabilidade e segurança**.  
+   - Implementação de um **fluxo de eventos** entre produtores e consumidores.  
+
+### 🔄 🔹 Fluxo de Mensageria  
+✅ Após a inclusão de um contato pelo **microsserviço de cadastro**, um evento é enviado para a fila. 
+✅ O **microsserviço de sincronização** então processa e insere os dados em uma base dedicada, 
+✅ garantindo integridade e disponibilidade para o **microsserviço de busca**.
+
 ## 📚 Contato
 
 Gustavo Peixoto
