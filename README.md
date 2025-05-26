@@ -191,10 +191,23 @@ Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de 
    - Mensageria garantindo **desempenho, escalabilidade e segurança**.  
    - Implementação de um **fluxo de eventos** entre produtores e consumidores.  
 
-### 🔄 🔹 Fluxo de Mensageria  
+### 🔄 🔹 Fluxo de Mensageria
+
 ✅ Após a inclusão de um contato pelo **microsserviço de cadastro**, um evento é enviado para a fila. 
 ✅ O **microsserviço de sincronização** então processa e insere os dados em uma base dedicada, 
 ✅ garantindo integridade e disponibilidade para o **microsserviço de busca**.
+
+###⚡ Arquitetura CQRS – Command Query Responsibility Segregation
+
+A arquitetura CQRS separa a lógica de leitura e escrita de dados, melhorando performance, escalabilidade e segurança.
+
+✅ Camada de Escrita (Command) – Responsável por manipular dados, garantindo consistência e validação das operações.
+✅ Camada de Leitura (Query) – Otimizada para consultas rápidas, podendo utilizar estruturas de dados específicas para melhor desempenho.
+
+🔹 Essa abordagem permite que sistemas lidem eficientemente com grandes volumes de dados e múltiplos acessos concorrentes, tornando o design mais resiliente e escalável.
+
+![Diagrama da arquitetura CQRS](./assets/cqrs_architecture.png)
+
 
 ## 📚 Contato
 
