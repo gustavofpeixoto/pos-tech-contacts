@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PosTech.Contacts.ApplicationCore.Constants;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 using PosTech.Contacts.Infrastructure;
-using PosTech.Contacts.Infrastructure.Repositories;
+using PosTech.Contacts.Infrastructure.Repositories.Command;
 
 namespace PosTech.Contacts.IntegrationTests
 {

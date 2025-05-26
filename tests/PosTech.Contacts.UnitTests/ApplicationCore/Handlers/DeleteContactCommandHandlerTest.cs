@@ -1,19 +1,22 @@
 ﻿using Moq;
-using PosTech.Contacts.ApplicationCore.Repositories;
 using PosTech.Contacts.ApplicationCore.Handlers;
 using PosTech.Contacts.ApplicationCore.Commands;
+using PosTech.Contacts.ApplicationCore.Messaging;
+using PosTech.Contacts.ApplicationCore.Repositories.Command;
 
 namespace PosTech.Contacts.UnitTests.ApplicationCore.Handlers
 {
     public class DeleteContactCommandHandlerTest
     {
         private readonly Mock<IContactRepository> _contactRepositoryMock;
+        private readonly Mock<IMessagingProducer> _messagingProducerMock;
         private readonly DeleteContactCommandHandler _deleteContactCommandHandler;
 
         public DeleteContactCommandHandlerTest()
         {
             _contactRepositoryMock = new Mock<IContactRepository>();
-            _deleteContactCommandHandler = new DeleteContactCommandHandler(_contactRepositoryMock.Object);
+            _messagingProducerMock = new Mock<IMessagingProducer>();
+            _deleteContactCommandHandler = new DeleteContactCommandHandler(_contactRepositoryMock.Object, _messagingProducerMock.Object);
         }
 
         [Fact]

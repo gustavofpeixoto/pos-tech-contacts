@@ -5,7 +5,7 @@ using PosTech.Contacts.ApplicationCore.Validators;
 
 namespace PosTech.Contacts.ApplicationCore
 {
-    public static class ServiceExtension
+    public static class ExtensionMethods
     {
         public static IServiceCollection AddApplicationCoreServices(this IServiceCollection services)
         {

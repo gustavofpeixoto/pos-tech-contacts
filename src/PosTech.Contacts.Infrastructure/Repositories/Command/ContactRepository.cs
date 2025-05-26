@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PosTech.Contacts.ApplicationCore.Entities;
-using PosTech.Contacts.ApplicationCore.Repositories;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
+using PosTech.Contacts.ApplicationCore.Repositories.Command;
 using System.Linq.Expressions;
 
-namespace PosTech.Contacts.Infrastructure.Repositories
+namespace PosTech.Contacts.Infrastructure.Repositories.Command
 {
     public class ContactRepository(ApplicationDbContext dbContext) : IContactRepository
     {
@@ -30,7 +30,10 @@ namespace PosTech.Contacts.Infrastructure.Repositories
 
         public async Task<Contact> GetByIdAsync(Guid id)
         {
-            var result = await _dbContext.Contacts.Include(x => x.Ddd).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _dbContext.Contacts
+                .Include(contact => contact.Ddd)
+                .ThenInclude(ddd => ddd.Region)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
         }

@@ -2,15 +2,41 @@ services:
   postech-contacts:
     image: postech/contacts:latest
     environment:
-      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTP_PORTS=5080
     build:
       context: .
       dockerfile: src/PosTech.Contacts.Api/Dockerfile
     ports:
-      - "8080:8080"
+      - "5080:5080"
     networks:
       - metrics
     container_name: postech-contacts
+
+  postech-contacts-search:
+    image: postech/contacts.search:latest
+    environment:
+      - ASPNETCORE_HTTP_PORTS=5081
+    build:
+      context: .
+      dockerfile: src/PosTech.Contacts.Search.Api/Dockerfile
+    ports:
+      - "5081:5081"
+    networks:
+      - metrics
+    container_name: postech-contacts-search
+
+  postech-contacts-worker:
+    image: postech/contacts.worker:latest
+    environment:
+      - ASPNETCORE_HTTP_PORTS=5082
+    build:
+      context: .
+      dockerfile: src/PosTech.Contacts.Worker/Dockerfile
+    ports:
+      - "5082:5082"
+    networks:
+      - metrics
+    container_name: postech-contacts-worker
   
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
@@ -45,6 +71,49 @@ services:
     depends_on: 
       - prometheus
     container_name: grafana
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "L38IwqjTXku0mxvCtKvNqw"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - metrics
+    container_name: rabbitmq
+
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: rHQaXMpbu02xTHkOpcyREw
+    volumes:
+      - C:/Users/Gustavo/source/volumes:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - metrics
+    container_name: mongo
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: gustavofpeixoto
+      ME_CONFIG_BASICAUTH_PASSWORD: local
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rHQaXMpbu02xTHkOpcyREw
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - 8081:8081
+    networks:
+      - metrics
+    container_name: mongo-express
 
 networks:
   metrics:

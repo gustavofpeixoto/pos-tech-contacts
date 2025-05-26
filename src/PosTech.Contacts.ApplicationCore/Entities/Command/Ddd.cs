@@ -1,4 +1,4 @@
-﻿namespace PosTech.Contacts.ApplicationCore.Entities
+﻿namespace PosTech.Contacts.ApplicationCore.Entities.Command
 {
     public class Ddd : Entity
     {

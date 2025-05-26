@@ -4,7 +4,7 @@ namespace PosTech.Contacts.Api.Settings
 {
     public partial class OutboundParameterTransformerSetting : IOutboundParameterTransformer
     {
-        public string? TransformOutbound(object? value)
+        public string TransformOutbound(object value)
         {
             if (value == null) return null;
 

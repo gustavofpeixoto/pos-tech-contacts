@@ -2,7 +2,7 @@
 using PosTech.Contacts.ApplicationCore.Commands;
 using PosTech.Contacts.ApplicationCore.DTOs.Requests;
 using PosTech.Contacts.ApplicationCore.DTOs.Responses;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 
 namespace PosTech.Contacts.ApplicationCore.Mapping
 {

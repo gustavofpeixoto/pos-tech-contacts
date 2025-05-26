@@ -1,0 +1,6 @@
+@PosTech.Contacts.Search.Api_HostAddress = http://localhost:5124
+
+GET {{PosTech.Contacts.Search.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

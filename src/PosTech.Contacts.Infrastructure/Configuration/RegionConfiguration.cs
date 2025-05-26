@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PosTech.Contacts.ApplicationCore.Entities;
+using PosTech.Contacts.ApplicationCore.Entities.Command;
 
 namespace PosTech.Contacts.Infrastructure.Configuration
 {
