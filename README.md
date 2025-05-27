@@ -185,7 +185,7 @@ Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de 
 ### 🔹 Principais Melhorias  
 1️⃣ **Arquitetura de Microsserviços + CRQS**  
    - Separação por contexto, garantindo **baixo acoplamento** e **alta coesão**.  
-   - Separação da aplicação monplítica em 3 novas aplicações: microsserviço de **cadastro**, microsserviço de **busca** e microsserviço de **sincronização**, impplementando uma arquitetura avançada que implementa CQRS.  
+   - Separação da aplicação monplítica em 3 novas aplicações: microsserviço de **cadastro**, microsserviço de **busca** e microsserviço de **sincronização**, implementando uma arquitetura avançada que implementa CQRS.  
 
 2️⃣ **Comunicação Assíncrona via RabbitMQ**  
    - Mensageria garantindo **desempenho, escalabilidade e segurança**.  
@@ -194,7 +194,7 @@ Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de 
 ### 🔄 🔹 Fluxo de Mensageria
 
 - ✅ Após a inclusão de um contato pelo **microsserviço de cadastro**, um evento é enviado para a fila. 
-- ✅ O **microsserviço de sincronização** então processa e insere os dados em uma base dedicada, 
+- ✅ O **microsserviço de sincronização** então processa e insere os dados em uma base de leitura, 
 - ✅ garantindo integridade e disponibilidade para o **microsserviço de busca**.
 
 ### ⚡Arquitetura CQRS – Command Query Responsibility Segregation
