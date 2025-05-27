@@ -7,6 +7,7 @@
 - [Descrição do projeto](#-descrição-do-projeto)
 - [Fase 1](#fase-1)
 - [Fase 2](#fase-2)
+- [Fase 3](#fase-3)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
@@ -178,7 +179,9 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 
 ![Painel de Uso da CPU](./assets/cpu_panel.png)
 
-## 🚀 Fase 3 – Evolução da API de Contatos  
+## Fase 3
+
+**Evolução da API de Contatos** 🚀
 
 Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de **cadastro de contatos regionais**, incorporando **arquitetura de microsserviços** e **mensageria assíncrona** com **RabbitMQ**. O objetivo é refatorar a estrutura monolítica, tornando-a **mais escalável, modular e resiliente**, melhorando a comunicação entre serviços.  
 
