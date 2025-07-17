@@ -7,6 +7,7 @@
 - [Descrição do projeto](#-descrição-do-projeto)
 - [Fase 1](#fase-1)
 - [Fase 2](#fase-2)
+- [Fase 3](#fase-3)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
@@ -178,14 +179,16 @@ As golden metrics são parâmetros essenciais para o monitoramento eficiente de 
 
 ![Painel de Uso da CPU](./assets/cpu_panel.png)
 
-## 🚀 Fase 3 – Evolução da API de Contatos  
+## Fase 3
+
+**Evolução da API de Contatos** 🚀
 
 Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de **cadastro de contatos regionais**, incorporando **arquitetura de microsserviços** e **mensageria assíncrona** com **RabbitMQ**. O objetivo é refatorar a estrutura monolítica, tornando-a **mais escalável, modular e resiliente**, melhorando a comunicação entre serviços.  
 
 ### 🔹 Principais Melhorias  
 1️⃣ **Arquitetura de Microsserviços + CRQS**  
    - Separação por contexto, garantindo **baixo acoplamento** e **alta coesão**.  
-   - Separação da aplicação monplítica em 3 novas aplicações: microsserviço de **cadastro**, microsserviço de **busca** e microsserviço de **sincronização**, impplementando uma arquitetura avançada que implementa CQRS.  
+   - Separação da aplicação monplítica em 3 novas aplicações: microsserviço de **cadastro**, microsserviço de **busca** e microsserviço de **sincronização**, implementando uma arquitetura avançada que implementa CQRS.  
 
 2️⃣ **Comunicação Assíncrona via RabbitMQ**  
    - Mensageria garantindo **desempenho, escalabilidade e segurança**.  
@@ -193,21 +196,32 @@ Nesta fase do **Tech Challenge**, avançamos na modernização do aplicativo de 
 
 ### 🔄 🔹 Fluxo de Mensageria
 
-✅ Após a inclusão de um contato pelo **microsserviço de cadastro**, um evento é enviado para a fila. 
-✅ O **microsserviço de sincronização** então processa e insere os dados em uma base dedicada, 
-✅ garantindo integridade e disponibilidade para o **microsserviço de busca**.
+- ✅ Após a inclusão de um contato pelo **microsserviço de cadastro**, um evento é enviado para a fila. 
+- ✅ O **microsserviço de sincronização** então processa e insere os dados em uma base de leitura, 
+- ✅ garantindo integridade e disponibilidade para o **microsserviço de busca**.
 
-###⚡ Arquitetura CQRS – Command Query Responsibility Segregation
+### ⚡Arquitetura CQRS – Command Query Responsibility Segregation
 
 A arquitetura CQRS separa a lógica de leitura e escrita de dados, melhorando performance, escalabilidade e segurança.
 
-✅ Camada de Escrita (Command) – Responsável por manipular dados, garantindo consistência e validação das operações.
-✅ Camada de Leitura (Query) – Otimizada para consultas rápidas, podendo utilizar estruturas de dados específicas para melhor desempenho.
+- ✅ Camada de Escrita (Command) – Responsável por manipular dados, garantindo consistência e validação das operações.
+- ✅ Camada de Leitura (Query) – Otimizada para consultas rápidas, podendo utilizar estruturas de dados específicas para melhor desempenho.
 
 🔹 Essa abordagem permite que sistemas lidem eficientemente com grandes volumes de dados e múltiplos acessos concorrentes, tornando o design mais resiliente e escalável.
 
 ![Diagrama da arquitetura CQRS](./assets/cqrs_architecture.png)
 
+### Fluxo do **Microsserviço de Cadastro**
+
+![Diagrama da arquitetura CQRS](./assets/ms_de_cadastro.png)
+
+### Fluxo do **Microsserviço de Sincronização**
+
+![Diagrama da arquitetura CQRS](./assets/ms_de_sincronizacao.png)
+
+### Fluxo do **Microsserviço de Busca**
+
+![Diagrama da arquitetura CQRS](./assets/ms_de_busca.png)
 
 ## 📚 Contato
 
