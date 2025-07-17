@@ -23,10 +23,10 @@ namespace PosTech.Contacts.Infrastructure.Messaging
 
                 var connectionFactory = new ConnectionFactory
                 {
-                    HostName = _configuration["RabbitMq:HostName"],
-                    VirtualHost = _configuration["RabbitMq:VirtualHost"],
-                    UserName = _configuration["RabbitMq:UserName"],
-                    Password = _configuration["RabbitMq:Password"],
+                    HostName = _configuration["RABBITMQ_HOSTNAME"],
+                    VirtualHost = _configuration["RABBITMQ_VIRTUALHOST"],
+                    UserName = _configuration["RABBITMQ_USERNAME"],
+                    Password = _configuration["RABBITMQ_PASSWORD"],
                 };
 
                 _connection = await connectionFactory.CreateConnectionAsync(stoppingToken);

@@ -18,7 +18,7 @@ namespace PosTech.Contacts.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(
-                    configuration.GetConnectionString("SqlServerConnection"),
+                    configuration["SQLSERVER_CONNECTION_STRING"],
                     x =>
                     {
                         x.MigrationsAssembly("PosTech.Contacts.Infrastructure");
@@ -32,7 +32,13 @@ namespace PosTech.Contacts.Infrastructure
             services.AddSingleton<RabbitMqConnectionManager>();
             services.AddSingleton<ApplicationCore.Repositories.Query.IContactRepository, Repositories.Query.ContactRepository>(sp =>
             {
-                var mongoDbSettings = configuration.GetSection("MongoDb").Get<MongoDbSettings>();
+                var mongoDbConnectionString = configuration["MONGODB_CONNECTION_STRING"];
+                var mongoDbDatabaseName = configuration["MONGODB_DATABASE_NAME"];
+                var mongoDbSettings = new MongoDbSettings
+                {
+                    ConnectionString = mongoDbConnectionString,
+                    DatabaseName = mongoDbDatabaseName
+                };
                 return new Repositories.Query.ContactRepository(mongoDbSettings);
             });
             services.AddSingleton<IMessagingProducer, RabbitMqMessagingProducer>();
