@@ -6,7 +6,7 @@ metadata:
     app: contacts-api-search
 spec:
   containers:
-    - name: contacts-api
+    - name: contacts-api-search
       image: gustavofpeixoto/postech:contacts-api-search
       ports:
         - containerPort: 8080
