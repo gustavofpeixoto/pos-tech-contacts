@@ -7,6 +7,12 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+ENV RABBITMQ_HOSTNAME="<configmap value>"
+ENV RABBITMQ_VIRTUALHOST="<configmap value>"
+ENV RABBITMQ_USERNAME="<configmap value>"
+ENV RABBITMQ_PASSWORD="<opaque secret value>"
+ENV MONGODB_CONNECTION_STRING="<opaque secret value>"
+ENV MONGODB_DATABASE_NAME="<configmap value>"
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
