@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
+using System.Threading;
 
 namespace PosTech.Contacts.Infrastructure.Messaging
 {
@@ -15,6 +16,7 @@ namespace PosTech.Contacts.Infrastructure.Messaging
             if (_connection != null && _connection.IsOpen) return _connection;
 
             await _connectionLock.WaitAsync(stoppingToken);
+
             try
             {
                 if (_connection != null && _connection.IsOpen) return _connection;
@@ -37,17 +39,19 @@ namespace PosTech.Contacts.Infrastructure.Messaging
             }
         }
 
-        public async Task<IChannel> GetChannelAsync(CancellationToken stoppingToken = default)
+        public async Task<IChannel> GetChannelAsync(CancellationToken cancellationToken = default)
         {
             if (_channel != null && _channel.IsOpen) return _channel;
 
-            await _connectionLock.WaitAsync(stoppingToken);
+            await _connectionLock.WaitAsync(cancellationToken);
+
             try
             {
                 if (_channel != null && _channel.IsOpen) return _channel;
 
-                var connection = await GetConnectionAsync(stoppingToken);
-                _channel = await connection.CreateChannelAsync(cancellationToken: stoppingToken);
+                var connection = await GetConnectionAsync(cancellationToken);
+
+                _channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
                 return _channel;
             }
@@ -62,16 +66,17 @@ namespace PosTech.Contacts.Infrastructure.Messaging
             if (_channel != null)
             {
                 await _channel.CloseAsync();
-                _channel.Dispose();
+                await _channel.DisposeAsync();
             }
 
             if (_connection != null)
             {
                 await _connection.CloseAsync();
-                _connection.Dispose();
+                await _connection.DisposeAsync();
             }
 
             _connectionLock.Dispose();
+
             GC.SuppressFinalize(this);
         }
     }

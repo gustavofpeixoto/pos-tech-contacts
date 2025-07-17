@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using PosTech.Contacts.ApplicationCore;
 using PosTech.Contacts.Infrastructure;
-using PosTech.Contacts.Worker;
+using PosTech.Contacts.Worker.Consumers;
 using PosTech.Contacts.Worker.Settings;
 using Prometheus;
 using Prometheus.DotNetRuntime;
-using Quartz;
 using Serilog;
 using System.Text.Json.Serialization;
 
@@ -38,12 +37,12 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 builder.Services.AddApplicationCoreServices();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddQuartz();
-builder.Services.AddQuartzHostedService(opt => { opt.WaitForJobsToComplete = true; });
+builder.Services.AddHostedService<ContactCreatedMessageConsumer>();
+builder.Services.AddHostedService<ContactDeletedMessageConsumer>();
+builder.Services.AddHostedService<ContactUpdatedMessageConsumer>();
 
 var app = builder.Build();
 
-await app.AddQuartzJobsAsync(app.Configuration);
 
 app.UseSwagger();
 app.UseSwaggerUI();

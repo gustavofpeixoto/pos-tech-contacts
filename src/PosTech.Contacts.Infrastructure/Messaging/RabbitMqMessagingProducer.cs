@@ -2,6 +2,7 @@
 using PosTech.Contacts.ApplicationCore.Serialization;
 using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 
 namespace PosTech.Contacts.Infrastructure.Messaging
 {
@@ -12,19 +13,28 @@ namespace PosTech.Contacts.Infrastructure.Messaging
 
         public async Task SendAsync<TMessage>(TMessage message, string queue)
         {
-            _connection = await rabbitMqConnectionManager.GetConnectionAsync();
-
+            _connection ??= await rabbitMqConnectionManager.GetConnectionAsync();
             _channel ??= await rabbitMqConnectionManager.GetChannelAsync();
 
-            await _channel.QueueDeclareAsync(queue,
+            var deadLetterQueueName = $"{queue}_error";
+            var arguments = new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", string.Empty }, // use default exchange
+                { "x-dead-letter-routing-key", deadLetterQueueName }
+            };
 
+            await _channel.QueueDeclareAsync(queue,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: arguments);
+            await _channel.QueueDeclareAsync(deadLetterQueueName,
                 durable: true,
                 exclusive: false,
                 autoDelete: false);
 
-            var serializedMessage = JsonSerializerHelper.Serialize(message);
+            var serializedMessage = JsonSerializer.Serialize(message);
             var messageBody = Encoding.UTF8.GetBytes(serializedMessage);
-
             var properties = new BasicProperties { Persistent = true };
 
             await _channel.BasicPublishAsync(
@@ -37,17 +47,19 @@ namespace PosTech.Contacts.Infrastructure.Messaging
 
         public async ValueTask DisposeAsync()
         {
-            if (_channel is not null)
+            if (_channel != null)
             {
                 await _channel.CloseAsync();
-                _channel.Dispose();
+                await _channel.DisposeAsync();
+
                 _channel = null;
             }
 
-            if (_connection is not null)
+            if (_connection != null)
             {
                 await _connection.CloseAsync();
-                _connection.Dispose();
+                await _connection.DisposeAsync();
+
                 _connection = null;
             }
 

@@ -3,7 +3,6 @@ using PosTech.Contacts.ApplicationCore.Messaging;
 using PosTech.Contacts.ApplicationCore.Repositories.Query;
 using PosTech.Contacts.ApplicationCore.Serialization;
 using PosTech.Contacts.Infrastructure.Messaging;
-using Quartz;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Serilog;
@@ -14,18 +13,24 @@ namespace PosTech.Contacts.Worker.Consumers
     public class ContactUpdatedMessageConsumer(
         RabbitMqConnectionManager rabbitMqConnectionManager,
         IContactRepository contactRepository)
-        : RabbitMqConsumer(rabbitMqConnectionManager), IJob
+        : RabbitMqConsumer(rabbitMqConnectionManager)
     {
-        public async Task Execute(IJobExecutionContext context)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await ExecuteAsync(QueueNames.ContactUpdated, stoppingToken);
+            await Task.CompletedTask;
+        }
+
+        protected async Task ExecuteAsync(string queueName, CancellationToken cancellationToken = default)
         {
             Log.Information("Iniciando execução do consumer: {consumer}", nameof(ContactUpdatedMessageConsumer));
 
-            await ConnectAsync(QueueNames.ContactUpdated);
+            await ConnectAsync(queueName, cancellationToken);
 
             var consumer = new AsyncEventingBasicConsumer(Channel);
             consumer.ReceivedAsync += ProcessMessageAsync;
 
-            await Channel.BasicConsumeAsync(QueueNames.ContactUpdated, false, consumer: consumer);
+            await Channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer, cancellationToken: cancellationToken);
 
             Log.Information("Finalizando execução do consumer: {consumer}", nameof(ContactUpdatedMessageConsumer));
         }
