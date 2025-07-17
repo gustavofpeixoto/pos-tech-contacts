@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sqlserver
+  labels:
+    app: sqlserver
+spec:
+  containers:
+    - name: sqlserver
+      image: mcr.microsoft.com/mssql/server:latest
+      ports:
+        - containerPort: 1433
+      env:
+        - name: MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: opaque-secret
+              key: MSSQL_SA_PASSWORD
+        - name: ACCEPT_EULA
+          valueFrom:
+            secretKeyRef:
+              name: opaque-secret
+              key: ACCEPT_EULA

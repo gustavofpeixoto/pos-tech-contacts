@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contacts-api
+  labels:
+    app: contacts-api
+spec:
+  containers:
+    - name: contacts-api
+      image: gustavofpeixoto/postech:contacts-api
+      ports:
+        - containerPort: 8080
+      env:
+        - name: RABBITMQ_HOSTNAME #nome da variável que o Pod "enxerga"
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-config
+              key: RABBITMQ_HOSTNAME #nome da variável mapeada no nó data do arquivo configmap.yml
+        - name: RABBITMQ_VIRTUALHOST
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-config
+              key: RABBITMQ_VIRTUALHOST
+        - name: RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-config
+              key: RABBITMQ_USERNAME
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: opaque-secret
+              key: RABBITMQ_PASSWORD
+        - name: SQLSERVER_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: opaque-secret
+              key: SQLSERVER_CONNECTION_STRING
