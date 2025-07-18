@@ -9,7 +9,7 @@ namespace PosTech.Contacts.ApplicationCore.Serialization
         private static readonly JsonSerializerOptions _options = new()
         {
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNameCaseInsensitive = true,
             ReferenceHandler = ReferenceHandler.IgnoreCycles
         };
 
