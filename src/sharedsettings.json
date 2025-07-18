@@ -8,12 +8,12 @@
   "MongoDb": {
     "ConnectionString": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@mongo:27017",
     "DatabaseName": "pos-tech-contacts"
-  },
-  "RABBITMQ_PASSWORD": "L38IwqjTXku0mxvCtKvNqw",
-  "RABBITMQ_PORT": "32005",
-  "RABBITMQ_HOSTNAME": "localhost",
-  "RABBITMQ_VIRTUALHOST": "/",
-  "RABBITMQ_USERNAME": "admin",
-  "MONGODB_CONNECTION_STRING": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@localhost:32008",
-  "MONGODB_DATABASE_NAME": "pos-tech-contacts"
+  }//,
+  //"RABBITMQ_PASSWORD": "L38IwqjTXku0mxvCtKvNqw",
+  //"RABBITMQ_PORT": "32005",
+  //"RABBITMQ_HOSTNAME": "localhost",
+  //"RABBITMQ_VIRTUALHOST": "/",
+  //"RABBITMQ_USERNAME": "admin",
+  //"MONGODB_CONNECTION_STRING": "mongodb://admin:rHQaXMpbu02xTHkOpcyREw@localhost:32008",
+  //"MONGODB_DATABASE_NAME": "pos-tech-contacts"
 }
