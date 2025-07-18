@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contacts-worker-deployment
+  labels:
+    app: contacts-worker-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: contacts-worker
+  template:
+    metadata:
+      labels:
+        app: contacts-worker
+    spec:
+      containers:
+        - name: contacts-worker
+          image: gustavofpeixoto/postech:contacts-worker
+          ports:
+            - containerPort: 8080
+          env:
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: cluster-config
+                  key: RABBITMQ_PORT
+            - name: RABBITMQ_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cluster-config
+                  key: RABBITMQ_HOSTNAME
+            - name: RABBITMQ_VIRTUALHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: cluster-config
+                  key: RABBITMQ_VIRTUALHOST
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cluster-config
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: opaque-secret
+                  key: RABBITMQ_PASSWORD
+            - name: MONGODB_DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cluster-config
+                  key: MONGODB_DATABASE_NAME
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: opaque-secret
+                  key: MONGODB_CONNECTION_STRING
