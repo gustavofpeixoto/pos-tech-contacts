@@ -11,6 +11,11 @@ spec:
       ports:
         - containerPort: 8080
       env:
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: cluster-config
+              key: RABBITMQ_PORT
         - name: RABBITMQ_HOSTNAME #nome da variável que o Pod "enxerga"
           valueFrom:
             configMapKeyRef:

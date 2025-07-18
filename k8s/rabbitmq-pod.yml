@@ -15,7 +15,7 @@ spec:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
             configMapKeyRef:
-              name: rabbitmq-config
+              name: cluster-config
               key: RABBITMQ_DEFAULT_USER
         - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
