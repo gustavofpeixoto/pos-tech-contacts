@@ -2,7 +2,6 @@
 using PosTech.Contacts.ApplicationCore.Serialization;
 using RabbitMQ.Client;
 using System.Text;
-using System.Text.Json;
 
 namespace PosTech.Contacts.Infrastructure.Messaging
 {
@@ -33,7 +32,7 @@ namespace PosTech.Contacts.Infrastructure.Messaging
                 exclusive: false,
                 autoDelete: false);
 
-            var serializedMessage = JsonSerializer.Serialize(message);
+            var serializedMessage = JsonSerializerHelper.Serialize(message);
             var messageBody = Encoding.UTF8.GetBytes(serializedMessage);
             var properties = new BasicProperties { Persistent = true };
 

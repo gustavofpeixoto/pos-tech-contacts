@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
-using System.Threading;
 
 namespace PosTech.Contacts.Infrastructure.Messaging
 {
@@ -23,6 +22,7 @@ namespace PosTech.Contacts.Infrastructure.Messaging
 
                 var connectionFactory = new ConnectionFactory
                 {
+                    Port = int.Parse(_configuration["RABBITMQ_PORT"]),
                     HostName = _configuration["RABBITMQ_HOSTNAME"],
                     VirtualHost = _configuration["RABBITMQ_VIRTUALHOST"],
                     UserName = _configuration["RABBITMQ_USERNAME"],
