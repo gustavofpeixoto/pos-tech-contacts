@@ -26,6 +26,5 @@ spec:
           mountPath: /data/db
   volumes:
     - name: mongo-data
-      hostPath:
-        path: "C:/Users/Gustavo/source/volumes"
-        type: Directory
+      persistentVolumeClaim:
+        claimName: mongo-pvc

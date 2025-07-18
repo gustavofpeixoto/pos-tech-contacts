@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: svc-mongo
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 80
       targetPort: 27017
+      nodePort: 32008
   selector:
     app: mongo
