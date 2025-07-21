@@ -12,3 +12,15 @@ data:
       - job_name: 'prometheus'
         static_configs:
           - targets: ['localhost:9090']
+
+      - job_name: 'contacts-api'
+        static_configs:
+          - targets: ['svc-contacts-api.default.svc.cluster.local:80']
+
+      - job_name: 'contacts-api-search'
+        static_configs:
+          - targets: ['svc-contacts-api-search.default.svc.cluster.local:80']
+
+      - job_name: 'contacts-worker'
+        static_configs:
+          - targets: ['svc-contacts-worker.default.svc.cluster.local:80']
