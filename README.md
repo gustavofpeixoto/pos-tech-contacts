@@ -8,6 +8,7 @@
 - [Fase 1](#fase-1)
 - [Fase 2](#fase-2)
 - [Fase 3](#fase-3)
+- [Fase 4](#fase-4)
 - [Contato](#-contato)
 
 ## 📚 Descrição do projeto
@@ -222,6 +223,49 @@ A arquitetura CQRS separa a lógica de leitura e escrita de dados, melhorando pe
 ### Fluxo do **Microsserviço de Busca**
 
 ![Diagrama da arquitetura CQRS](./assets/ms_de_busca.png)
+
+## Fase 4
+
+### Objetivos
+- Orquestração com Kubernetes
+Implementar Kubernetes para gerenciar deploys, escalabilidade e estado dos microsserviços.
+- Escalabilidade e Resiliência
+Usar ReplicaSets, Deployments e Services para garantir que cada serviço seja dimensionado e tolerante a falhas.
+- Gerenciamento de Configuração e Dados
+Utilizar ConfigMaps e Volumes para externalizar configurações e manter dados persistentes de cada microsserviço.
+
+### 📚 Arquitetura Proposta
+
+```mermaid
+graph TD
+  subgraph APIs
+    svc-contacts-api["Service: svc-contacts-api (NodePort: 32000)"] --> contacts-api["Deployment: contacts-api (replicas: 2)"]
+    contacts-api --> pod-api["Pod: contacts-api"]
+
+    svc-contacts-api-search["Service: svc-contacts-api-search (NodePort: 32001)"] --> contacts-api-search["Deployment: contacts-api-search (replicas: 4)"]
+    contacts-api-search --> pod-api-search["Pod: contacts-api-search"]
+  end
+
+  subgraph Worker
+    svc-contacts-worker["Service: svc-contacts-worker (ClusterIP)"] --> contacts-worker["Deployment: contacts-worker (replicas: 2)"]
+    contacts-worker --> pod-worker["Pod: contacts-worker"]
+  end
+
+  subgraph Monitoramento
+    svc-prometheus["Service: svc-prometheus (NodePort: 32004)"] --> prometheus["Prometheus Pod"]
+    svc-grafana["Service: svc-grafana (NodePort: 32002)"] --> grafana["Grafana Pod"]
+  end
+
+  subgraph Bancos e Mensageria
+    svc-mongo["Service: svc-mongo (NodePort: 32008)"] --> mongo["MongoDB Pod"]
+    svc-sqlserver["Service: svc-sqlserver (NodePort: 32007)"] --> sqlserver["SQL Server Pod"]
+    svc-rabbitmq["Service: svc-rabbitmq (NodePort: 32005 / 32006)"] --> rabbitmq["RabbitMQ Pod"]
+  end
+
+  prometheus --> svc-contacts-api
+  prometheus --> svc-contacts-api-search
+  prometheus --> svc-contacts-worker
+```
 
 ## 📚 Contato
 
